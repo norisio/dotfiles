@@ -47,6 +47,8 @@ set incsearch
 set number
 
 set cursorline " カーソルラインの強調表示を有効化
+autocmd VimEnter,WinEnter * let w:m_sp = matchadd("SpecialKey", '\(\t\| \+$\)')
+
  
 "閉括弧が入力された時、対応する括弧を強調する
 set showmatch
@@ -107,6 +109,7 @@ NeoBundle 'tpope/vim-commentary'	"使えないかも
 " NeoBundle 'jacquesbh/vim-showmarks'
 NeoBundle 'kien/rainbow_parentheses.vim'
 NeoBundle 'haya14busa/incsearch.vim'
+NeoBundle 'kana/vim-smartchr'
 
 "clang_complete(設定は下の方で)
 NeoBundle 'Rip-Rip/clang_complete'
@@ -211,6 +214,46 @@ au Syntax * RainbowParenthesesLoadBraces		"{}
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
+
+
+"smartchr
+    let lst = [   ['<',     "smartchr#loop(' < ', ' << ', '<')" ],
+                \ ['>',     "smartchr#loop(' > ', ' >> ', '>')"],
+                \ ['+',     "smartchr#loop(' + ', '++', '+')"],
+                \ ['-',     "smartchr#loop(' - ', '--', '-')"],
+                \ ['/',     "smartchr#loop(' / ', '//', '/')"],
+                \ ['&',     "smartchr#loop(' & ', ' && ', '&')"],
+                \ ['%',     "smartchr#loop(' % ', '%')"],
+                \ ['*',     "smartchr#loop('*', ' * ', '**')"],
+                \ ['<Bar>', "smartchr#loop(' | ', ' || ', '|')"],
+                \ [',',     "smartchr#loop(', ', ',')"]]
+                "\ ['*',     "smartchr#loop(' * ', '*')"],
+ 
+    for i in lst
+        call smartinput#map_to_trigger('i', i[0], i[0], i[0])
+        call smartinput#define_rule({ 'char' : i[0], 'at' : '\%#',                                      'input' : '<C-R>=' . i[1] . '<CR>'})
+        call smartinput#define_rule({'char' : i[0], 'at' : '^\([^"]*"[^"]*"\)*[^"]*"[^"]*\%#',          'input' : i[0]})
+        call smartinput#define_rule({ 'char' : i[0], 'at' : '^\([^'']*''[^'']*''\)*[^'']*''[^'']*\%#',  'input' : i[0] })
+    endfor
+ 
+    call smartinput#define_rule({'char' : '>', 'at' : ' < \%#', 'input' : '<BS><BS><BS><><Left>'})
+ 
+    call smartinput#map_to_trigger('i', '=', '=', '=')
+    call smartinput#define_rule({ 'char' : '=', 'at' : '\%#',                                       'input' : "<C-R>=smartchr#loop(' = ', ' == ', '=')<CR>"})
+    call smartinput#define_rule({ 'char' : '=', 'at' : '[&+-/<>|] \%#',                             'input' : '<BS>= '})
+    call smartinput#define_rule({ 'char' : '=', 'at' : '!\%#',                                      'input' : '= '})
+    call smartinput#define_rule({ 'char' : '=', 'at' : '^\([^"]*"[^"]*"\)*[^"]*"[^"]*\%#',          'input' : '='})
+    call smartinput#define_rule({ 'char' : '=', 'at' : '^\([^'']*''[^'']*''\)*[^'']*''[^'']*\%#',   'input' : '='})
+ 
+    call smartinput#map_to_trigger('i', '<BS>', '<BS>', '<BS>')
+    call smartinput#define_rule({ 'char' : '<BS>' , 'at' : '(\s*)\%#'   , 'input' : '<C-O>dF(<BS>'})
+    call smartinput#define_rule({ 'char' : '<BS>' , 'at' : '{\s*}\%#'   , 'input' : '<C-O>dF{<BS>'})
+    call smartinput#define_rule({ 'char' : '<BS>' , 'at' : '<\s*>\%#'   , 'input' : '<C-O>dF<<BS>'})
+    call smartinput#define_rule({ 'char' : '<BS>' , 'at' : '\[\s*\]\%#' , 'input' : '<C-O>dF[<BS>'})
+ 
+    for op in ['<', '>', '+', '-', '/', '&', '%', '\*', '|']
+        call smartinput#define_rule({ 'char' : '<BS>' , 'at' : ' ' . op . ' \%#' , 'input' : '<BS><BS><BS>'})
+    endfor
 
 
 " s;; -> std:: などのショートカット
