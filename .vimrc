@@ -78,6 +78,10 @@ set pumheight=10
 nnoremap + <C-a>
 nnoremap - <C-x>
 
+" smartinputを回避する括弧
+inoremap \( (
+inoremap \{ {
+
 
 "---------------------------
 " Start Neobundle Settings.
@@ -104,12 +108,10 @@ NeoBundle 'Shougo/neosnippet-snippets'
 NeoBundle 'Shougo/unite.vim'
 
 NeoBundle 'vim-jp/cpp-vim'
-NeoBundle 'tpope/vim-commentary'	"使えないかも
 
 " NeoBundle 'jacquesbh/vim-showmarks'
 NeoBundle 'kien/rainbow_parentheses.vim'
 NeoBundle 'haya14busa/incsearch.vim'
-NeoBundle 'kana/vim-smartchr'
 
 "clang_complete(設定は下の方で)
 NeoBundle 'Rip-Rip/clang_complete'
@@ -147,13 +149,8 @@ imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
  
-" SuperTab like snippets behavior.
-"imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-"\ "\<Plug>(neosnippet_expand_or_jump)"
-"\: pumvisible() ? "\<C-n>" : "\<TAB>"
-"smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-"\ "\<Plug>(neosnippet_expand_or_jump)"
-"\: "\<TAB>"
+let s:my_snippet = '~/.vim/snippets/'
+let g:neosnippet#snippets_directory = s:my_snippet
 
 imap <expr><TAB> pumvisible() ? "\<C-n>" : neosnippet#jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 smap <expr><TAB> neosnippet#jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
@@ -217,44 +214,44 @@ map g/ <Plug>(incsearch-stay)
 
 
 "smartchr
-    let lst = [   ['<',     "smartchr#loop(' < ', ' << ', '<')" ],
-                \ ['>',     "smartchr#loop(' > ', ' >> ', '>')"],
-                \ ['+',     "smartchr#loop(' + ', '++', '+')"],
-                \ ['-',     "smartchr#loop(' - ', '--', '-')"],
-                \ ['/',     "smartchr#loop(' / ', '//', '/')"],
-                \ ['&',     "smartchr#loop(' & ', ' && ', '&')"],
-                \ ['%',     "smartchr#loop(' % ', '%')"],
-                \ ['*',     "smartchr#loop('*', ' * ', '**')"],
-                \ ['<Bar>', "smartchr#loop(' | ', ' || ', '|')"],
-                \ [',',     "smartchr#loop(', ', ',')"]]
-                "\ ['*',     "smartchr#loop(' * ', '*')"],
- 
-    for i in lst
-        call smartinput#map_to_trigger('i', i[0], i[0], i[0])
-        call smartinput#define_rule({ 'char' : i[0], 'at' : '\%#',                                      'input' : '<C-R>=' . i[1] . '<CR>'})
-        call smartinput#define_rule({'char' : i[0], 'at' : '^\([^"]*"[^"]*"\)*[^"]*"[^"]*\%#',          'input' : i[0]})
-        call smartinput#define_rule({ 'char' : i[0], 'at' : '^\([^'']*''[^'']*''\)*[^'']*''[^'']*\%#',  'input' : i[0] })
-    endfor
- 
-    call smartinput#define_rule({'char' : '>', 'at' : ' < \%#', 'input' : '<BS><BS><BS><><Left>'})
- 
-    call smartinput#map_to_trigger('i', '=', '=', '=')
-    call smartinput#define_rule({ 'char' : '=', 'at' : '\%#',                                       'input' : "<C-R>=smartchr#loop(' = ', ' == ', '=')<CR>"})
-    call smartinput#define_rule({ 'char' : '=', 'at' : '[&+-/<>|] \%#',                             'input' : '<BS>= '})
-    call smartinput#define_rule({ 'char' : '=', 'at' : '!\%#',                                      'input' : '= '})
-    call smartinput#define_rule({ 'char' : '=', 'at' : '^\([^"]*"[^"]*"\)*[^"]*"[^"]*\%#',          'input' : '='})
-    call smartinput#define_rule({ 'char' : '=', 'at' : '^\([^'']*''[^'']*''\)*[^'']*''[^'']*\%#',   'input' : '='})
- 
-    call smartinput#map_to_trigger('i', '<BS>', '<BS>', '<BS>')
-    call smartinput#define_rule({ 'char' : '<BS>' , 'at' : '(\s*)\%#'   , 'input' : '<C-O>dF(<BS>'})
-    call smartinput#define_rule({ 'char' : '<BS>' , 'at' : '{\s*}\%#'   , 'input' : '<C-O>dF{<BS>'})
-    call smartinput#define_rule({ 'char' : '<BS>' , 'at' : '<\s*>\%#'   , 'input' : '<C-O>dF<<BS>'})
-    call smartinput#define_rule({ 'char' : '<BS>' , 'at' : '\[\s*\]\%#' , 'input' : '<C-O>dF[<BS>'})
- 
-    for op in ['<', '>', '+', '-', '/', '&', '%', '\*', '|']
-        call smartinput#define_rule({ 'char' : '<BS>' , 'at' : ' ' . op . ' \%#' , 'input' : '<BS><BS><BS>'})
-    endfor
-
+"    let lst = [   ['<',     "smartchr#loop(' < ', ' << ', '<')" ],
+"                \ ['>',     "smartchr#loop(' > ', ' >> ', '>')"],
+"                \ ['+',     "smartchr#loop(' + ', '++', '+')"],
+"                \ ['-',     "smartchr#loop(' - ', '--', '-')"],
+"                \ ['/',     "smartchr#loop(' / ', '//', '/')"],
+"                \ ['&',     "smartchr#loop(' & ', ' && ', '&')"],
+"                \ ['%',     "smartchr#loop(' % ', '%')"],
+"                \ ['*',     "smartchr#loop('*', ' * ', '**')"],
+"                \ ['<Bar>', "smartchr#loop(' | ', ' || ', '|')"],
+"                \ [',',     "smartchr#loop(', ', ',')"]]
+"                "\ ['*',     "smartchr#loop(' * ', '*')"],
+" 
+"    for i in lst
+"        call smartinput#map_to_trigger('i', i[0], i[0], i[0])
+"        call smartinput#define_rule({ 'char' : i[0], 'at' : '\%#',                                      'input' : '<C-R>=' . i[1] . '<CR>'})
+"        call smartinput#define_rule({'char' : i[0], 'at' : '^\([^"]*"[^"]*"\)*[^"]*"[^"]*\%#',          'input' : i[0]})
+"        call smartinput#define_rule({ 'char' : i[0], 'at' : '^\([^'']*''[^'']*''\)*[^'']*''[^'']*\%#',  'input' : i[0] })
+"    endfor
+" 
+"    call smartinput#define_rule({'char' : '>', 'at' : ' < \%#', 'input' : '<BS><BS><BS><><Left>'})
+" 
+"    call smartinput#map_to_trigger('i', '=', '=', '=')
+"    call smartinput#define_rule({ 'char' : '=', 'at' : '\%#',                                       'input' : "<C-R>=smartchr#loop(' = ', ' == ', '=')<CR>"})
+"    call smartinput#define_rule({ 'char' : '=', 'at' : '[&+-/<>|] \%#',                             'input' : '<BS>= '})
+"    call smartinput#define_rule({ 'char' : '=', 'at' : '!\%#',                                      'input' : '= '})
+"    call smartinput#define_rule({ 'char' : '=', 'at' : '^\([^"]*"[^"]*"\)*[^"]*"[^"]*\%#',          'input' : '='})
+"    call smartinput#define_rule({ 'char' : '=', 'at' : '^\([^'']*''[^'']*''\)*[^'']*''[^'']*\%#',   'input' : '='})
+" 
+"    call smartinput#map_to_trigger('i', '<BS>', '<BS>', '<BS>')
+"    call smartinput#define_rule({ 'char' : '<BS>' , 'at' : '(\s*)\%#'   , 'input' : '<C-O>dF(<BS>'})
+"    call smartinput#define_rule({ 'char' : '<BS>' , 'at' : '{\s*}\%#'   , 'input' : '<C-O>dF{<BS>'})
+"    call smartinput#define_rule({ 'char' : '<BS>' , 'at' : '<\s*>\%#'   , 'input' : '<C-O>dF<<BS>'})
+"    call smartinput#define_rule({ 'char' : '<BS>' , 'at' : '\[\s*\]\%#' , 'input' : '<C-O>dF[<BS>'})
+" 
+"    for op in ['<', '>', '+', '-', '/', '&', '%', '\*', '|']
+"        call smartinput#define_rule({ 'char' : '<BS>' , 'at' : ' ' . op . ' \%#' , 'input' : '<BS><BS><BS>'})
+"    endfor
+"
 
 " s;; -> std:: などのショートカット
 augroup cpp-namespace
