@@ -82,6 +82,8 @@ nnoremap - <C-x>
 inoremap \( (
 inoremap \{ {
 
+syntax on
+
 
 "---------------------------
 " Start Neobundle Settings.
@@ -106,6 +108,8 @@ NeoBundle 'tpope/vim-surround'	"surround.vim
 NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/neosnippet-snippets'
 NeoBundle 'Shougo/unite.vim'
+"uniteのもの
+NeoBundle 'ujihisa/unite-colorscheme'
 
 NeoBundle 'vim-jp/cpp-vim'
 
@@ -125,10 +129,10 @@ NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'croaker/mustang-vim'
 " jellybeans
 NeoBundle 'nanotech/jellybeans.vim'
+NeoBundle 'w0ng/vim-hybrid'
 " molokai
 NeoBundle 'tomasr/molokai'
 
-NeoBundle 'ujihisa/unite-colorscheme'
  
 call neobundle#end()
  
@@ -212,46 +216,6 @@ map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
 
-
-"smartchr
-"    let lst = [   ['<',     "smartchr#loop(' < ', ' << ', '<')" ],
-"                \ ['>',     "smartchr#loop(' > ', ' >> ', '>')"],
-"                \ ['+',     "smartchr#loop(' + ', '++', '+')"],
-"                \ ['-',     "smartchr#loop(' - ', '--', '-')"],
-"                \ ['/',     "smartchr#loop(' / ', '//', '/')"],
-"                \ ['&',     "smartchr#loop(' & ', ' && ', '&')"],
-"                \ ['%',     "smartchr#loop(' % ', '%')"],
-"                \ ['*',     "smartchr#loop('*', ' * ', '**')"],
-"                \ ['<Bar>', "smartchr#loop(' | ', ' || ', '|')"],
-"                \ [',',     "smartchr#loop(', ', ',')"]]
-"                "\ ['*',     "smartchr#loop(' * ', '*')"],
-" 
-"    for i in lst
-"        call smartinput#map_to_trigger('i', i[0], i[0], i[0])
-"        call smartinput#define_rule({ 'char' : i[0], 'at' : '\%#',                                      'input' : '<C-R>=' . i[1] . '<CR>'})
-"        call smartinput#define_rule({'char' : i[0], 'at' : '^\([^"]*"[^"]*"\)*[^"]*"[^"]*\%#',          'input' : i[0]})
-"        call smartinput#define_rule({ 'char' : i[0], 'at' : '^\([^'']*''[^'']*''\)*[^'']*''[^'']*\%#',  'input' : i[0] })
-"    endfor
-" 
-"    call smartinput#define_rule({'char' : '>', 'at' : ' < \%#', 'input' : '<BS><BS><BS><><Left>'})
-" 
-"    call smartinput#map_to_trigger('i', '=', '=', '=')
-"    call smartinput#define_rule({ 'char' : '=', 'at' : '\%#',                                       'input' : "<C-R>=smartchr#loop(' = ', ' == ', '=')<CR>"})
-"    call smartinput#define_rule({ 'char' : '=', 'at' : '[&+-/<>|] \%#',                             'input' : '<BS>= '})
-"    call smartinput#define_rule({ 'char' : '=', 'at' : '!\%#',                                      'input' : '= '})
-"    call smartinput#define_rule({ 'char' : '=', 'at' : '^\([^"]*"[^"]*"\)*[^"]*"[^"]*\%#',          'input' : '='})
-"    call smartinput#define_rule({ 'char' : '=', 'at' : '^\([^'']*''[^'']*''\)*[^'']*''[^'']*\%#',   'input' : '='})
-" 
-"    call smartinput#map_to_trigger('i', '<BS>', '<BS>', '<BS>')
-"    call smartinput#define_rule({ 'char' : '<BS>' , 'at' : '(\s*)\%#'   , 'input' : '<C-O>dF(<BS>'})
-"    call smartinput#define_rule({ 'char' : '<BS>' , 'at' : '{\s*}\%#'   , 'input' : '<C-O>dF{<BS>'})
-"    call smartinput#define_rule({ 'char' : '<BS>' , 'at' : '<\s*>\%#'   , 'input' : '<C-O>dF<<BS>'})
-"    call smartinput#define_rule({ 'char' : '<BS>' , 'at' : '\[\s*\]\%#' , 'input' : '<C-O>dF[<BS>'})
-" 
-"    for op in ['<', '>', '+', '-', '/', '&', '%', '\*', '|']
-"        call smartinput#define_rule({ 'char' : '<BS>' , 'at' : ' ' . op . ' \%#' , 'input' : '<BS><BS><BS>'})
-"    endfor
-"
 
 " s;; -> std:: などのショートカット
 augroup cpp-namespace
