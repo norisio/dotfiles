@@ -7,7 +7,7 @@ set shiftwidth=4	"インデントの幅
 set list
 set listchars=tab:>-
 
-"ノーマルモードで日本語オフ
+"ノーマルモードで日本語オフ(Gui_MacVim_Kaoriya限定)
 set imdisable
 " 日本語入力をリセット
 au BufNewFile,BufRead * set iminsert=0
@@ -99,9 +99,9 @@ NeoBundleFetch 'Shougo/neobundle.vim'
  
 NeoBundle 'mattn/emmet-vim'	"emmet
 NeoBundle 'kana/vim-smartinput'	"vim-smartinput
-NeoBundle 'scrooloose/nerdtree'	"nerdtree
-nnoremap <silent><C-e> :NERDTreeToggle<CR>
-let NERDTreeShowHidden = 1
+"NeoBundle 'scrooloose/nerdtree'	"nerdtree
+"nnoremap <silent><C-e> :NERDTreeToggle<CR>
+"let NERDTreeShowHidden = 1
 NeoBundle 'tpope/vim-surround'	"surround.vim
 
 "NeoBundle 'Shougo/neocomplete'
@@ -117,8 +117,10 @@ NeoBundle 'vim-jp/cpp-vim'
 NeoBundle 'kien/rainbow_parentheses.vim'
 NeoBundle 'haya14busa/incsearch.vim'
 
-"clang_complete(設定は下の方で)
-NeoBundle 'Rip-Rip/clang_complete'
+if has('gui_macvim')
+	"clang_complete(設定は下の方で)
+	NeoBundle 'Rip-Rip/clang_complete'
+endif
 
 
 
@@ -168,19 +170,24 @@ endif
 let g:neocomplete#enable_at_startup = 1		"補完を自動起動
 "NeoSnippetの設定おわり
 
-autocmd BufNewFile *.c 0r ~/.vim/template/c.txt
-autocmd BufNewFile *.cpp 0r ~/.vim/template/cpp.txt
+
+if has('gui_macvim')
+	autocmd BufNewFile *.c 0r ~/.vim/template/c.txt
+	autocmd BufNewFile *.cpp 0r ~/.vim/template/cpp.txt
+endif
 
 
-" clang_completeの設定
-let g:clang_complete_auto = 1
-let g:clang_user_options = '-std=c++11'
-let g:clang_use_library=1
-let g:clang_debug=1
-let g:clang_library_path="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib"
-let g:clang_auto_select=1
-let g:clang_complete_copen = 0
-let g:clang_periodic_quickfix = 1
+if has('gui_macvim')
+	" clang_completeの設定
+	let g:clang_complete_auto = 1
+	let g:clang_user_options = '-std=c++11'
+	let g:clang_use_library=1
+	let g:clang_debug=1
+	let g:clang_library_path="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib"
+	let g:clang_auto_select=1
+	let g:clang_complete_copen = 0
+	let g:clang_periodic_quickfix = 1
+endif
 
 "rainbow_parentheses設定
 let g:rbpt_colorpairs = [
@@ -214,7 +221,7 @@ au Syntax * RainbowParenthesesLoadBraces		"{}
 " incsearch.vim
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
-map g/ <Plug>(incsearch-stay)
+" map g/ <Plug>(incsearch-stay)
 
 
 " s;; -> std:: などのショートカット

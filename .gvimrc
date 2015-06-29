@@ -16,7 +16,6 @@ endif
 
 
 set showtabline=2	"常にタブを表示
-"set cmdheight=3
 ""タブ切り替え
 nnoremap <C-Tab>   gt
 nnoremap <C-S-Tab> gT
