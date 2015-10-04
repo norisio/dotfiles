@@ -68,6 +68,7 @@ nnoremap <ESC><ESC> :nohlsearch<CR>
 " ノーマルモードEnterで改行を挿入
 nmap <CR> i<CR><ESC>
 
+
 " Y で行末までヤンクに変更
 nnoremap Y y$
 
@@ -83,6 +84,15 @@ inoremap \( (
 inoremap \{ {
 
 syntax on
+
+" コマンドラインモードで%%でパス展開
+cnoremap <expr> %% getcmdtype() == ':'? expand('%:h').'/' : '%%'
+
+" 前後のブレースに飛ぶ
+:map [[ ?{<CR>w99[{
+:map ][ /}<CR>b99]}
+:map ]] j0[[%/{<CR>
+:map [] k$][%?}<CR>
 
 
 "---------------------------
@@ -242,3 +252,11 @@ function! s:expand_namespace()
     endif
 endfunction
 "おわり
+"
+"
+"lilypond用
+if has('gui_macvim')
+	filetype off
+	set runtimepath+=/Applications/LilyPond.app/Contents/Resources/share/lilypond/current/vim
+	filetype on
+endif
