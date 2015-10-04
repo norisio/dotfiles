@@ -252,8 +252,7 @@ function! s:expand_namespace()
     endif
 endfunction
 "おわり
-"
-"
+
 "lilypond用
 if has('gui_macvim')
 	filetype off
