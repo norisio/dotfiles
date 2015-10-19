@@ -82,18 +82,28 @@ nnoremap - <C-x>
 " smartinputを回避する括弧
 inoremap \( (
 inoremap \{ {
+inoremap \) )
+inoremap \} }
 
 syntax on
 
 " コマンドラインモードで%%でパス展開
 cnoremap <expr> %% getcmdtype() == ':'? expand('%:h').'/' : '%%'
 
-" 前後のブレースに飛ぶ
-:map [[ ?{<CR>w99[{
-:map ][ /}<CR>b99]}
-:map ]] j0[[%/{<CR>
-:map [] k$][%?}<CR>
 
+colorscheme desert
+
+"パス設定
+"if has("gui_macvim")
+"	set path+=,~/repository/ofx/libs,/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1,/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/6.1.0/include,/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/usr/include
+"endif
+
+"2段ステータスバー
+set laststatus=2
+
+" 上下スクロール
+nnoremap <C-k> <C-u>
+nnoremap <C-j> <C-d>
 
 "---------------------------
 " Start Neobundle Settings.
@@ -144,6 +154,8 @@ NeoBundle 'nanotech/jellybeans.vim'
 NeoBundle 'w0ng/vim-hybrid'
 " molokai
 NeoBundle 'tomasr/molokai'
+"lightline
+NeoBundle 'itchyny/lightline.vim'
 
  
 call neobundle#end()
@@ -232,6 +244,16 @@ au Syntax * RainbowParenthesesLoadBraces		"{}
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 " map g/ <Plug>(incsearch-stay)
+
+"lightlineの設定
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ 'component': {
+      \   'readonly': '%{&readonly?"":""}',
+      \ },
+      \ 'separator': { 'left': '', 'right': '' },
+      \ 'subseparator': { 'left': '', 'right': '' }
+      \ }
 
 
 " s;; -> std:: などのショートカット

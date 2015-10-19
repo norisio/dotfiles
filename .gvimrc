@@ -1,5 +1,7 @@
 if has('gui_macvim')
-	set guifont=Ricty\ Diminished\ Regular:h17
+	"set guifont=Ricty\ Diminished\ for\ Powerline:h17
+	"set guifont=Ricty\ Diminished\ Regular:h17
+	set guifont=Ricty\ Diminished\ Regular\ for\ Powerline:h17
 	set transparency=10	"透明度
 
 	colorscheme mydesert
@@ -20,4 +22,3 @@ set showtabline=2	"常にタブを表示
 nnoremap <C-Tab>   gt
 nnoremap <C-S-Tab> gT
 
-"
