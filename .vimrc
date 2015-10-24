@@ -17,6 +17,10 @@ set visualbell t_vb=
 
 "新しい行のインデントを現在行と同じにする
 set autoindent 
+ 
+"新しい行を作った時に高度な自動インデントを行う
+set smarttab
+set smartindent
 
 " 左右のカーソル移動で行間移動可能にする。
 set whichwrap=b,s,<,>,[,]
@@ -40,8 +44,11 @@ set directory=$HOME/vimbackup
 "変更中のファイルでも、保存しないで他のファイルを表示する
 set hidden
  
-"インクリメンタルサーチを行う
+"検索関係
 set incsearch
+set ignorecase
+set smartcase
+
  
 "行番号を表示する
 set number
@@ -54,14 +61,11 @@ autocmd VimEnter,WinEnter * let w:m_sp = matchadd("SpecialKey", '\(\t\| \+$\)')
 set showmatch
 set matchtime=1
  
-"新しい行を作った時に高度な自動インデントを行う
-set smarttab
-set smartindent
- 
 " grep検索を設定する
 set grepformat=%f:%l:%m,%f:%l%m,%f\ \ %l%m,%f
 set grepprg=grep\ -nh
  
+set hlsearch
 " 検索結果のハイライトをEsc連打でクリアする
 nnoremap <ESC><ESC> :nohlsearch<CR>
 
@@ -91,7 +95,12 @@ syntax on
 cnoremap <expr> %% getcmdtype() == ':'? expand('%:h').'/' : '%%'
 
 
+"色関係
 colorscheme desert
+
+highlight SpecialKey ctermfg=black
+
+
 
 "パス設定
 "if has("gui_macvim")
@@ -136,6 +145,7 @@ NeoBundle 'vim-jp/cpp-vim'
 " NeoBundle 'jacquesbh/vim-showmarks'
 NeoBundle 'kien/rainbow_parentheses.vim'
 NeoBundle 'haya14busa/incsearch.vim'
+NeoBundle 'kurocode25/mdforvim'
 
 if has('gui_macvim')
 	"clang_complete(設定は下の方で)
@@ -243,6 +253,7 @@ au Syntax * RainbowParenthesesLoadBraces		"{}
 " incsearch.vim
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
+nnoremap z/ /
 " map g/ <Plug>(incsearch-stay)
 
 "lightlineの設定
@@ -255,25 +266,12 @@ let g:lightline = {
       \ 'subseparator': { 'left': '', 'right': '' }
       \ }
 
-
-" s;; -> std:: などのショートカット
-augroup cpp-namespace
-    autocmd!
-    autocmd FileType cpp inoremap <buffer><expr>; <SID>expand_namespace()
-augroup END
-function! s:expand_namespace()
-    let s = getline('.')[0:col('.')-1]
-    if s =~# '\<b;$'
-        return "\<BS>oost::"
-    elseif s =~# '\<s;$'
-        return "\<BS>td::"
-    elseif s =~# '\<d;$'
-        return "\<BS>etail::"
-    else
-        return ';'
-    endif
+"autocmd FileType c,cpp inoremap <buffer>; ;<C-[>==a
+autocmd FileType c,cpp call s:cF()
+function! s:cF()
+	setlocal cindent
+	setlocal cinkeys +=;
 endfunction
-"おわり
 
 "lilypond用
 if has('gui_macvim')

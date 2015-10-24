@@ -13,7 +13,7 @@ if has('gui_macvim')
 	set lines=40
 
 	" GUI版でのtab等の文字色指定
-	highlight SpecialKey guifg=black    
+	highlight SpecialKey guifg=black
 endif
 
 
