@@ -70,7 +70,7 @@ set hlsearch
 nnoremap <ESC><ESC> :nohlsearch<CR>
 
 " ノーマルモードEnterで改行を挿入
-nmap <CR> i<CR><ESC>
+"nmap <CR> i<CR><ESC>
 
 
 " Y で行末までヤンクに変更
@@ -99,13 +99,9 @@ cnoremap <expr> %% getcmdtype() == ':'? expand('%:h').'/' : '%%'
 colorscheme desert
 
 highlight SpecialKey ctermfg=black
+set t_Co=256
 
 
-
-"パス設定
-"if has("gui_macvim")
-"	set path+=,~/repository/ofx/libs,/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1,/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/6.1.0/include,/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/usr/include
-"endif
 
 "2段ステータスバー
 set laststatus=2
@@ -113,6 +109,10 @@ set laststatus=2
 " 上下スクロール
 nnoremap <C-k> <C-u>
 nnoremap <C-j> <C-d>
+
+" モード抜けのマッピング
+inoremap <C-j> <C-[>
+vnoremap <C-j> <C-[>
 
 "---------------------------
 " Start Neobundle Settings.
@@ -147,10 +147,13 @@ NeoBundle 'kien/rainbow_parentheses.vim'
 NeoBundle 'haya14busa/incsearch.vim'
 NeoBundle 'kurocode25/mdforvim'
 
-if has('gui_macvim')
-	"clang_complete(設定は下の方で)
-	NeoBundle 'Rip-Rip/clang_complete'
-endif
+"if has('gui_macvim')
+"	"clang_complete(設定は下の方で)
+"	NeoBundle 'Rip-Rip/clang_complete'
+"endif
+"if has('gui_macvim')
+	NeoBundle 'justmao945/vim-clang'
+"endif
 
 
 
@@ -209,17 +212,8 @@ if has('gui_macvim')
 endif
 
 
-if has('gui_macvim')
-	" clang_completeの設定
-	let g:clang_complete_auto = 1
-	let g:clang_user_options = '-std=c++11'
-	let g:clang_use_library=1
-	let g:clang_debug=1
-	let g:clang_library_path="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib"
-	let g:clang_auto_select=1
-	let g:clang_complete_copen = 0
-	let g:clang_periodic_quickfix = 1
-endif
+let g:clang_c_options = '-std=c11'
+let g:clang_cpp_options = '-std=c++1z -stdlib=libc++ --pedantic-errors'
 
 "rainbow_parentheses設定
 let g:rbpt_colorpairs = [
