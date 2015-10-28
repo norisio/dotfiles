@@ -32,15 +32,10 @@ setopt print_eight_bit
 #######################################
 # 色の設定
 export LSCOLORS=Exfxcxdxbxegedabagacad
-# 補完時の色の設定
 export LS_COLORS='di=01;34:ln=01;35:so=01;32:ex=01;31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-# ZLS_COLORSとは？
 export ZLS_COLORS=$LS_COLORS
-# lsコマンド時、自動で色がつく(ls -Gのようなもの？)
 export CLICOLOR=true
-# 補完候補に色を付ける
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
-# ignorecaseな補完
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
 
@@ -59,12 +54,13 @@ if [[ -n "$BUFFER" ]]; then
 	builtin zle .accept-line
 	return 0
 fi
-if [ "$WIDGET" != "$LASTWIDGET" ]; then
-	MY_ENTER_COUNT=0
-fi
-case $[MY_ENTER_COUNT++] in
+#if [ "$WIDGET" != "$LASTWIDGET" ]; then
+#	MY_ENTER_COUNT=0
+#fi
+case $[MY_ENTER_COUNT] in
 	0)
 		BUFFER=" ls"
+		MY_ENTER_COUNT=1
 		;;
 	1)
 		BUFFER=" ls -a"
@@ -73,7 +69,8 @@ case $[MY_ENTER_COUNT++] in
 		#elif git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
 		#	BUFFER=" git status -sb"
 		#fi
-		unset MY_ENTER_COUNT
+		#unset MY_ENTER_COUNT
+		MY_ENTER_COUNT=0
 		;;
 	*)
 		unset MY_ENTER_COUNT
@@ -84,6 +81,22 @@ builtin zle .accept-line
 }
 zle -N my_enter
 bindkey '^m' my_enter
+
+# ^でcd ..する
+# # http://shakenbu.org/yanagi/d/?date=20120301
+cdup() {
+	if [ -z "$BUFFER" ]; then
+		echo
+		cd ..
+		call_precmd
+		zle reset-prompt
+	else
+		zle self-insert '^'
+	fi
+}
+zle -N cdup
+bindkey '\^' cdup
+
 
 #個別のアプリケーションの初期化
 

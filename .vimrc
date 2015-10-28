@@ -13,11 +13,11 @@ set imdisable
 au BufNewFile,BufRead * set iminsert=0
 
 " ビープ音なし
-set visualbell t_vb= 
+set visualbell t_vb=
 
 "新しい行のインデントを現在行と同じにする
-set autoindent 
- 
+set autoindent
+
 "新しい行を作った時に高度な自動インデントを行う
 set smarttab
 set smartindent
@@ -28,43 +28,45 @@ set whichwrap=b,s,<,>,[,]
 
 "バックアップファイルのディレクトリを指定する
 set backupdir=$HOME/vimbackup
- 
+
 "クリップボードをWindowsと連携する
 "set clipboard=unnamed
- 
+
 "vi互換をオフする
 set nocompatible
- 
+
 "スワップファイル用のディレクトリを指定する
 set directory=$HOME/vimbackup
- 
+
 "タブの代わりに空白文字を挿入する
 "set expandtab
- 
+
 "変更中のファイルでも、保存しないで他のファイルを表示する
 set hidden
- 
+
 "検索関係
 set incsearch
 set ignorecase
 set smartcase
+"set hlsearch
+set nohlsearch
 
- 
+
 "行番号を表示する
 set number
 
 set cursorline " カーソルラインの強調表示を有効化
 autocmd VimEnter,WinEnter * let w:m_sp = matchadd("SpecialKey", '\(\t\| \+$\)')
 
- 
+
 "閉括弧が入力された時、対応する括弧を強調する
 set showmatch
 set matchtime=1
- 
+
 " grep検索を設定する
 set grepformat=%f:%l:%m,%f:%l%m,%f\ \ %l%m,%f
 set grepprg=grep\ -nh
- 
+
 set hlsearch
 " 検索結果のハイライトをEsc連打でクリアする
 nnoremap <ESC><ESC> :nohlsearch<CR>
@@ -119,13 +121,13 @@ vnoremap <C-j> <C-[>
 "---------------------------
 " bundleで管理するディレクトリを指定
 set runtimepath+=~/.vim/bundle/neobundle.vim/
- 
+
 " Required:
 call neobundle#begin(expand('~/.vim/bundle/'))
- 
+
 " neobundle自体をneobundleで管理
 NeoBundleFetch 'Shougo/neobundle.vim'
- 
+
 NeoBundle 'mattn/emmet-vim'	"emmet
 NeoBundle 'kana/vim-smartinput'	"vim-smartinput
 "NeoBundle 'scrooloose/nerdtree'	"nerdtree
@@ -170,16 +172,16 @@ NeoBundle 'tomasr/molokai'
 "lightline
 NeoBundle 'itchyny/lightline.vim'
 
- 
+
 call neobundle#end()
- 
+
 " Required:
 filetype plugin indent on
- 
+
 " 未インストールのプラグインがある場合、インストールするかどうかを尋ねてくれるようにする設定
 " 毎回聞かれると邪魔な場合もあるので、この設定は任意です。
 NeoBundleCheck
- 
+
 "-------------------------
 " End Neobundle Settings.
 "-------------------------
@@ -189,14 +191,14 @@ NeoBundleCheck
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
- 
+
 let s:my_snippet = '~/.vim/snippets/'
 let g:neosnippet#snippets_directory = s:my_snippet
 
 imap <expr><TAB> pumvisible() ? "\<C-n>" : neosnippet#jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 smap <expr><TAB> neosnippet#jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<S-TAB>"
- 
+
 " For snippet_complete marker.
 if has('conceal')
   set conceallevel=2 concealcursor=i
