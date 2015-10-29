@@ -27,6 +27,9 @@ setopt pushd_ignore_dups
 # 日本語ファイル名を表示可能にする
 setopt print_eight_bit
 
+# 訂正
+setopt correct
+
 #######################################
 # Color
 #######################################
