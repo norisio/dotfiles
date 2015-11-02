@@ -123,6 +123,14 @@ alias readlink='greadlink'
 alias awk='gawk'
 alias sed='gsed'
 alias date='gdate'
+case "${OSTYPE}" in
+	linux*)
+		alias ls='ls --color'
+		;;
+esac
+alias a-upd='sudo apt-get update'
+alias a-upg='sudo apt-get upgrade'
+alias a-ins='sudo apt-get install '
 
 alias -g G='| grep'
 

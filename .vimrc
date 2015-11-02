@@ -103,8 +103,6 @@ colorscheme desert
 highlight SpecialKey ctermfg=black
 set t_Co=256
 
-
-
 "2段ステータスバー
 set laststatus=2
 
@@ -115,6 +113,15 @@ nnoremap <C-j> <C-d>
 " モード抜けのマッピング
 inoremap <C-j> <C-[>
 vnoremap <C-j> <C-[>
+
+set wildmenu
+
+command! Vs  e ~/.vimrc
+command! Gvs  e ~/.gvimrc
+command! Zs  e ~/.zshrc
+command! Zp  e ~/.zprofile
+
+" Insert new setting here.
 
 "---------------------------
 " Start Neobundle Settings.
