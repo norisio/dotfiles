@@ -110,28 +110,31 @@ alias l='ls'
 alias ll='ls -l'
 alias la='ls -a'
 alias tree='tree -N'
-alias winecmd='wine ~/.wine/drive_c/windows/system32/cmd.exe'
+#alias winecmd='wine ~/.wine/drive_c/windows/system32/cmd.exe'
 alias vs='vim ~/.vimrc'
 alias gvs='vim ~/.gvimrc'
 alias zs='vim ~/.zshrc'
 alias zp='vim ~/.zprofile'
 alias vi='vim'
-alias sshs='ssh seimitsu2@pepc2.local -p60022'
-alias getown='sudo chown -R $(whoami):admin /usr/local'
 alias :q='exit'
-alias readlink='greadlink'
-alias awk='gawk'
-alias sed='gsed'
-alias date='gdate'
 case "${OSTYPE}" in
 	linux*)
 		alias ls='ls --color'
+		alias a-upd='sudo apt-get update'
+		alias a-upg='sudo apt-get upgrade'
+		alias a-ins='sudo apt-get install '
+		;;
+	darwin*)
+		alias getown='sudo chown -R $(whoami):admin /usr/local'
+		alias readlink='greadlink'
+		alias awk='gawk'
+		alias sed='gsed'
+		alias date='gdate'
+		alias sshs='ssh seimitsu2@pepc2.local -p60022'
 		;;
 esac
-alias a-upd='sudo apt-get update'
-alias a-upg='sudo apt-get upgrade'
-alias a-ins='sudo apt-get install '
 
+alias -g L="| less"
 alias -g G='| grep'
 
 alias -s py='python3 '

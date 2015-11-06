@@ -21,3 +21,7 @@ fi
 if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
 
 export PATH=$PATH:~/bin
+
+if [ -d /usr/local/Cellar/qt5 ] ; then
+	export PATH="/usr/local/Cellar/qt5/5.5.1/bin:$PATH"
+fi

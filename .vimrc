@@ -22,24 +22,15 @@ set autoindent
 set smarttab
 set smartindent
 
-" 左右のカーソル移動で行間移動可能にする。
+set nocompatible
 set whichwrap=b,s,<,>,[,]
-
+set backspace=start,eol,indent
 
 "バックアップファイルのディレクトリを指定する
 set backupdir=$HOME/vimbackup
 
-"クリップボードをWindowsと連携する
-"set clipboard=unnamed
-
-"vi互換をオフする
-set nocompatible
-
 "スワップファイル用のディレクトリを指定する
 set directory=$HOME/vimbackup
-
-"タブの代わりに空白文字を挿入する
-"set expandtab
 
 "変更中のファイルでも、保存しないで他のファイルを表示する
 set hidden
@@ -100,8 +91,8 @@ cnoremap <expr> %% getcmdtype() == ':'? expand('%:h').'/' : '%%'
 "色関係
 colorscheme desert
 
-highlight SpecialKey ctermfg=black
 set t_Co=256
+highlight SpecialKey ctermfg=black
 
 "2段ステータスバー
 set laststatus=2
@@ -110,7 +101,7 @@ set laststatus=2
 nnoremap <C-k> <C-u>
 nnoremap <C-j> <C-d>
 
-" モード抜けのマッピング
+" モード抜のマッピング
 inoremap <C-j> <C-[>
 vnoremap <C-j> <C-[>
 
@@ -121,6 +112,7 @@ command! Gvs  e ~/.gvimrc
 command! Zs  e ~/.zshrc
 command! Zp  e ~/.zprofile
 
+set ttimeoutlen=100
 " Insert new setting here.
 
 "---------------------------
@@ -264,9 +256,7 @@ let g:lightline = {
       \ 'colorscheme': 'wombat',
       \ 'component': {
       \   'readonly': '%{&readonly?"":""}',
-      \ },
-      \ 'separator': { 'left': '', 'right': '' },
-      \ 'subseparator': { 'left': '', 'right': '' }
+      \ }
       \ }
 
 "autocmd FileType c,cpp inoremap <buffer>; ;<C-[>==a
