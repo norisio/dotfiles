@@ -100,6 +100,8 @@ set laststatus=2
 " 上下スクロール
 nnoremap <C-k> <C-u>
 nnoremap <C-j> <C-d>
+nnoremap <CR> G
+nnoremap <BS> gg
 
 " モード抜のマッピング
 inoremap <C-j> <C-[>
@@ -113,6 +115,10 @@ command! Zs  e ~/.zshrc
 command! Zp  e ~/.zprofile
 
 set ttimeoutlen=100
+
+"<Space>関係
+nmap <Space>a yyp
+
 " Insert new setting here.
 
 "---------------------------
@@ -127,7 +133,7 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 " neobundle自体をneobundleで管理
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-NeoBundle 'mattn/emmet-vim'	"emmet
+"NeoBundle 'mattn/emmet-vim'	"emmet
 NeoBundle 'kana/vim-smartinput'	"vim-smartinput
 "NeoBundle 'scrooloose/nerdtree'	"nerdtree
 "nnoremap <silent><C-e> :NERDTreeToggle<CR>
@@ -144,9 +150,10 @@ NeoBundle 'ujihisa/unite-colorscheme'
 NeoBundle 'vim-jp/cpp-vim'
 
 " NeoBundle 'jacquesbh/vim-showmarks'
-NeoBundle 'kien/rainbow_parentheses.vim'
+" NeoBundle 'kien/rainbow_parentheses.vim'
 NeoBundle 'haya14busa/incsearch.vim'
-NeoBundle 'kurocode25/mdforvim'
+" NeoBundle 'kurocode25/mdforvim'
+NeoBundle 'easymotion/vim-easymotion'
 
 "if has('gui_macvim')
 "	"clang_complete(設定は下の方で)
@@ -217,32 +224,32 @@ let g:clang_c_options = '-std=c11'
 let g:clang_cpp_options = '-std=c++1z -stdlib=libc++ --pedantic-errors'
 
 "rainbow_parentheses設定
-let g:rbpt_colorpairs = [
-    \ ['brown',       'cyan'],
-    \ ['Darkblue',    'SeaGreen3'],
-    \ ['darkgray',    'DarkOrange3'],
-    \ ['darkgreen',   'firebrick3'],
-    \ ['darkcyan',    'white'],
-    \ ['darkred',     'SeaGreen3'],
-    \ ['darkmagenta', 'grey'],
-    \ ['brown',       'blue'],
-    \ ['gray',        'lightgreen'],
-    \ ['black',       'lightred'],
-    \ ['darkmagenta', 'yellow'],
-    \ ['Darkblue',    'magenta'],
-    \ ['darkgreen',   'lightblue'],
-    \ ['darkcyan',    'SeaGreen3'],
-    \ ['darkred',     'DarkOrange3'],
-    \ ['red',         'firebrick3'],
-    \ ]
-let g:rbpt_max = 16
-let g:rbpt_loadcmd_toggle = 0
-"自動ON
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound			"()
-au Syntax * RainbowParenthesesLoadSquare		"[]
-au Syntax * RainbowParenthesesLoadBraces		"{}
-"au Syntax * RainbowParenthesesLoadChevrons		"<>
+"let g:rbpt_colorpairs = [
+"    \ ['brown',       'cyan'],
+"    \ ['Darkblue',    'SeaGreen3'],
+"    \ ['darkgray',    'DarkOrange3'],
+"    \ ['darkgreen',   'firebrick3'],
+"    \ ['darkcyan',    'white'],
+"    \ ['darkred',     'SeaGreen3'],
+"    \ ['darkmagenta', 'grey'],
+"    \ ['brown',       'blue'],
+"    \ ['gray',        'lightgreen'],
+"    \ ['black',       'lightred'],
+"    \ ['darkmagenta', 'yellow'],
+"    \ ['Darkblue',    'magenta'],
+"    \ ['darkgreen',   'lightblue'],
+"    \ ['darkcyan',    'SeaGreen3'],
+"    \ ['darkred',     'DarkOrange3'],
+"    \ ['red',         'firebrick3'],
+"    \ ]
+"let g:rbpt_max = 16
+"let g:rbpt_loadcmd_toggle = 0
+""自動ON
+"au VimEnter * RainbowParenthesesToggle
+"au Syntax * RainbowParenthesesLoadRound			"()
+"au Syntax * RainbowParenthesesLoadSquare		"[]
+"au Syntax * RainbowParenthesesLoadBraces		"{}
+""au Syntax * RainbowParenthesesLoadChevrons		"<>
 
 
 " incsearch.vim
@@ -272,3 +279,10 @@ if has('gui_macvim')
 	set runtimepath+=/Applications/LilyPond.app/Contents/Resources/share/lilypond/current/vim
 	filetype on
 endif
+
+"easymotion
+let g:EasyMotion_do_mapping = 0
+nmap s <Plug>(easymotion-s2)
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
+let g:EasyMotion_smartcase = 1
