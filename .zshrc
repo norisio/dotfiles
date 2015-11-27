@@ -34,8 +34,10 @@ setopt correct
 # Color
 #######################################
 # 色の設定
-export LSCOLORS=Exfxcxdxbxegedabagacad
-export LS_COLORS='di=01;34:ln=01;35:so=01;32:ex=01;31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
+#export LSCOLORS=Exfxcxdxbxegedabagacad
+export LSCOLORS=Exfxcxdxbxahadabagacad
+#export LS_COLORS='di=01;34:ln=01;35:so=01;32:ex=01;31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
+export LS_COLORS='di=1;34;40:ln=35;40:so=32;40:pi=33;40:ex=31;40:bd=0;47:cd=0;43:su=0;41:sg=0;46:tw=0;42:ow=0;43:'
 export ZLS_COLORS=$LS_COLORS
 export CLICOLOR=true
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
@@ -49,6 +51,7 @@ PROMPT="
 %{${fg[yellow]}%}%~%{${reset_color}%} 
 [%n]$ "
 PROMPT2='[%n]> ' 
+setopt transient_rprompt
 
 
 # 空欄Enterでls
@@ -133,6 +136,9 @@ case "${OSTYPE}" in
 		alias sshs='ssh seimitsu2@pepc2.local -p60022'
 		;;
 esac
+alias gc="git commit"
+alias gs="git status"
+alias gp="git push"
 
 alias -g L="| less"
 alias -g G='| grep'
