@@ -117,7 +117,9 @@ command! Zp  e ~/.zprofile
 set ttimeoutlen=100
 
 "<Space>関係
-nmap <Space>a yyp
+
+
+
 
 " Insert new setting here.
 
@@ -272,6 +274,20 @@ function! s:cF()
 	setlocal cindent
 	setlocal cinkeys +=;
 endfunction
+autocmd FileType c          setlocal sw=4 sts=4 ts=4 et
+autocmd FileType cpp        setlocal sw=4 sts=4 ts=4 et
+autocmd FileType css        setlocal sw=2 sts=2 ts=2 et
+autocmd FileType html       setlocal sw=2 sts=2 ts=2 et
+autocmd FileType javascript setlocal sw=2 sts=2 ts=2 et
+autocmd FileType perl       setlocal sw=4 sts=4 ts=4 et
+autocmd FileType php        setlocal sw=4 sts=4 ts=4 et
+autocmd FileType python     setlocal sw=4 sts=4 ts=4 et
+autocmd FileType ruby       setlocal sw=2 sts=2 ts=2 et
+autocmd FileType sh         setlocal sw=4 sts=4 ts=4 et
+autocmd FileType vim        setlocal sw=2 sts=2 ts=2 et
+autocmd FileType xhtml      setlocal sw=2 sts=2 ts=2 et
+autocmd FileType xml        setlocal sw=2 sts=2 ts=2 et
+autocmd FileType zsh        setlocal sw=2 sts=2 ts=2 et
 
 "lilypond用
 if has('gui_macvim')
@@ -283,6 +299,6 @@ endif
 "easymotion
 let g:EasyMotion_do_mapping = 0
 nmap s <Plug>(easymotion-s2)
-map <Leader>j <Plug>(easymotion-j)
-map <Leader>k <Plug>(easymotion-k)
+map <Space>j <Plug>(easymotion-j)
+map <Space>k <Plug>(easymotion-k)
 let g:EasyMotion_smartcase = 1
