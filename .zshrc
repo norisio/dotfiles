@@ -53,6 +53,10 @@ PROMPT="
 PROMPT2='[%n]> ' 
 setopt transient_rprompt
 
+source ~/repository/zsh_onvim/zsh_onvim.zsh
+#RPROMPT="%{${bg[green]}%}%{${fg[white]}%}$(onvim)%{${reset_color}%}"
+RPROMPT="%K{green}%F{white}$(onvim)%f%k"
+
 
 # 空欄Enterでls
 function my_enter {
