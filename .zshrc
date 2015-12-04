@@ -7,6 +7,22 @@ SAVEHIST=1000000
 setopt hist_ignore_dups
 setopt share_history
 
+# zplug
+if [ ! -f ~/.zplug/zplug ]; then
+  curl -fLo ~/.zplug/zplug --create-dirs git.io/zplug
+fi
+source ~/.zplug/zplug
+### plug-ins
+zplug "norisio/zsh_onvim"
+### 
+if ! zplug check --verbose; then
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
+    fi
+fi
+zplug load
+
 ########################################
 # Zsh 補完
 
@@ -53,9 +69,9 @@ PROMPT="
 PROMPT2='[%n]> ' 
 setopt transient_rprompt
 
-source ~/repository/zsh_onvim/zsh_onvim.zsh
+#source ~/repository/zsh_onvim/zsh_onvim.zsh
 #RPROMPT="%{${bg[green]}%}%{${fg[white]}%}$(onvim)%{${reset_color}%}"
-RPROMPT="%K{green}%F{white}$(onvim)%f%k"
+RPROMPT="%K{green}%F{black}$(onvim)%f%k"
 
 
 # 空欄Enterでls
@@ -150,3 +166,4 @@ alias -g G='| grep'
 alias -s py='python3 '
 
 echo Welcome to `zsh --version` !
+alias of='cd ~/repository/ofx'
