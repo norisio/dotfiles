@@ -102,6 +102,7 @@ nnoremap <C-k> <C-u>
 nnoremap <C-j> <C-d>
 nnoremap <CR> G
 nnoremap <BS> gg
+set scroll=10
 
 " モード抜のマッピング
 inoremap <C-j> <C-[>
@@ -136,7 +137,7 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 "NeoBundle 'mattn/emmet-vim'	"emmet
-NeoBundle 'kana/vim-smartinput'	"vim-smartinput
+"NeoBundle 'kana/vim-smartinput'	"vim-smartinput
 "NeoBundle 'scrooloose/nerdtree'	"nerdtree
 "nnoremap <silent><C-e> :NERDTreeToggle<CR>
 "let NERDTreeShowHidden = 1
@@ -156,6 +157,7 @@ NeoBundle 'vim-jp/cpp-vim'
 NeoBundle 'haya14busa/incsearch.vim'
 " NeoBundle 'kurocode25/mdforvim'
 NeoBundle 'easymotion/vim-easymotion'
+NeoBundle 'simeji/winresizer'
 
 "if has('gui_macvim')
 "	"clang_complete(設定は下の方で)
@@ -290,7 +292,7 @@ autocmd FileType xml        setlocal sw=2 sts=2 ts=2 et
 autocmd FileType zsh        setlocal sw=2 sts=2 ts=2 et
 
 "lilypond用
-if has('gui_macvim')
+if has('mac')
 	filetype off
 	set runtimepath+=/Applications/LilyPond.app/Contents/Resources/share/lilypond/current/vim
 	filetype on
