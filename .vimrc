@@ -264,11 +264,13 @@ nnoremap z/ /
 
 "lightlineの設定
 let g:lightline = {
-      \ 'colorscheme': 'wombat',
       \ 'component': {
-      \   'readonly': '%{&readonly?"":""}',
+      \   'readonly': '%{&readonly?"⭤":""}',
+      \    },
+      \ 'separator': { 'left': '⮀', 'right': '⮂' },
+      \ 'subseparator': { 'left': '⮁', 'right': '⮃' }
       \ }
-      \ }
+      "\ 'colorscheme': 'wombat',
 
 "autocmd FileType c,cpp inoremap <buffer>; ;<C-[>==a
 autocmd FileType c,cpp call s:cF()
@@ -280,6 +282,7 @@ autocmd FileType c          setlocal sw=4 sts=4 ts=4 et
 autocmd FileType cpp        setlocal sw=4 sts=4 ts=4 et
 autocmd FileType css        setlocal sw=2 sts=2 ts=2 et
 autocmd FileType html       setlocal sw=2 sts=2 ts=2 et
+autocmd FileType java       setlocal sw=2 sts=2 ts=2 et
 autocmd FileType javascript setlocal sw=2 sts=2 ts=2 et
 autocmd FileType perl       setlocal sw=4 sts=4 ts=4 et
 autocmd FileType php        setlocal sw=4 sts=4 ts=4 et
@@ -290,6 +293,7 @@ autocmd FileType vim        setlocal sw=2 sts=2 ts=2 et
 autocmd FileType xhtml      setlocal sw=2 sts=2 ts=2 et
 autocmd FileType xml        setlocal sw=2 sts=2 ts=2 et
 autocmd FileType zsh        setlocal sw=2 sts=2 ts=2 et
+
 
 "lilypond用
 if has('mac')
