@@ -1,8 +1,10 @@
 "--------------------
 " 基本的な設定
 "--------------------
-set tabstop=4	"Tabのサイズ
-set shiftwidth=4	"インデントの幅
+set nocompatible
+set tabstop=2  "Tabのサイズ
+set shiftwidth=2  "インデントの幅
+set expandtab
 " tab可視化
 set list
 set listchars=tab:>-
@@ -22,49 +24,33 @@ set autoindent
 set smarttab
 set smartindent
 
-set nocompatible
 set whichwrap=b,s,<,>,[,]
 set backspace=start,eol,indent
 
-"バックアップファイルのディレクトリを指定する
 set backupdir=$HOME/vimbackup
-
-"スワップファイル用のディレクトリを指定する
+set undodir=$HOME/vimbackup
 set directory=$HOME/vimbackup
 
-"変更中のファイルでも、保存しないで他のファイルを表示する
 set hidden
 
 "検索関係
 set incsearch
 set ignorecase
 set smartcase
-"set hlsearch
 set nohlsearch
 
-
-"行番号を表示する
 set number
-
-set cursorline " カーソルラインの強調表示を有効化
+"set cursorline " カーソルラインの強調表示を有効化
 autocmd VimEnter,WinEnter * let w:m_sp = matchadd("SpecialKey", '\(\t\| \+$\)')
 
 
 "閉括弧が入力された時、対応する括弧を強調する
 set showmatch
 set matchtime=1
+let loaded_matchparen = 1
 
-" grep検索を設定する
-set grepformat=%f:%l:%m,%f:%l%m,%f\ \ %l%m,%f
-set grepprg=grep\ -nh
-
-set hlsearch
 " 検索結果のハイライトをEsc連打でクリアする
 nnoremap <ESC><ESC> :nohlsearch<CR>
-
-" ノーマルモードEnterで改行を挿入
-"nmap <CR> i<CR><ESC>
-
 
 " Y で行末までヤンクに変更
 nnoremap Y y$
@@ -72,15 +58,8 @@ nnoremap Y y$
 " 補完リストの高さを制限
 set pumheight=10
 
-" インクリメント・デクリメント
 nnoremap + <C-a>
 nnoremap - <C-x>
-
-" smartinputを回避する括弧
-inoremap \( (
-inoremap \{ {
-inoremap \) )
-inoremap \} }
 
 syntax on
 
@@ -94,17 +73,18 @@ colorscheme desert
 set t_Co=256
 highlight SpecialKey ctermfg=black
 
-"2段ステータスバー
 set laststatus=2
 
 " 上下スクロール
 nnoremap <C-k> <C-u>
 nnoremap <C-j> <C-d>
-nnoremap <CR> G
-nnoremap <BS> gg
 set scroll=10
 
-" モード抜のマッピング
+nnoremap j gj
+nnoremap k gk
+
+set noshowmode
+
 inoremap <C-j> <C-[>
 vnoremap <C-j> <C-[>
 
@@ -119,11 +99,6 @@ set ttimeoutlen=100
 
 "<Space>関係
 
-
-
-
-" Insert new setting here.
-
 "---------------------------
 " Start Neobundle Settings.
 "---------------------------
@@ -136,51 +111,27 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 " neobundle自体をneobundleで管理
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-"NeoBundle 'mattn/emmet-vim'	"emmet
-"NeoBundle 'kana/vim-smartinput'	"vim-smartinput
-"NeoBundle 'scrooloose/nerdtree'	"nerdtree
-"nnoremap <silent><C-e> :NERDTreeToggle<CR>
-"let NERDTreeShowHidden = 1
-NeoBundle 'tpope/vim-surround'	"surround.vim
+NeoBundle 'tpope/vim-surround'
 
 "NeoBundle 'Shougo/neocomplete'
 NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/neosnippet-snippets'
 NeoBundle 'Shougo/unite.vim'
-"uniteのもの
-NeoBundle 'ujihisa/unite-colorscheme'
 
 NeoBundle 'vim-jp/cpp-vim'
 
-" NeoBundle 'jacquesbh/vim-showmarks'
-" NeoBundle 'kien/rainbow_parentheses.vim'
 NeoBundle 'haya14busa/incsearch.vim'
-" NeoBundle 'kurocode25/mdforvim'
 NeoBundle 'easymotion/vim-easymotion'
 NeoBundle 'simeji/winresizer'
+NeoBundle 'itchyny/lightline.vim'
 
-"if has('gui_macvim')
-"	"clang_complete(設定は下の方で)
-"	NeoBundle 'Rip-Rip/clang_complete'
-"endif
+"uniteのもの
+NeoBundle 'ujihisa/unite-colorscheme'
+NeoBundle 'kmnk/vim-unite-giti'
+
 "if has('gui_macvim')
 	NeoBundle 'justmao945/vim-clang'
 "endif
-
-
-
-"カラースキーマ
-" solarized
-NeoBundle 'altercation/vim-colors-solarized'
-" mustang
-NeoBundle 'croaker/mustang-vim'
-" jellybeans
-NeoBundle 'nanotech/jellybeans.vim'
-NeoBundle 'w0ng/vim-hybrid'
-" molokai
-NeoBundle 'tomasr/molokai'
-"lightline
-NeoBundle 'itchyny/lightline.vim'
 
 
 call neobundle#end()
@@ -218,43 +169,8 @@ let g:neocomplete#enable_at_startup = 1		"補完を自動起動
 "NeoSnippetの設定おわり
 
 
-if has('gui_macvim')
-	autocmd BufNewFile *.c 0r ~/.vim/template/c.txt
-	autocmd BufNewFile *.cpp 0r ~/.vim/template/cpp.txt
-endif
-
-
 let g:clang_c_options = '-std=c11'
-let g:clang_cpp_options = '-std=c++1z -stdlib=libc++ --pedantic-errors'
-
-"rainbow_parentheses設定
-"let g:rbpt_colorpairs = [
-"    \ ['brown',       'cyan'],
-"    \ ['Darkblue',    'SeaGreen3'],
-"    \ ['darkgray',    'DarkOrange3'],
-"    \ ['darkgreen',   'firebrick3'],
-"    \ ['darkcyan',    'white'],
-"    \ ['darkred',     'SeaGreen3'],
-"    \ ['darkmagenta', 'grey'],
-"    \ ['brown',       'blue'],
-"    \ ['gray',        'lightgreen'],
-"    \ ['black',       'lightred'],
-"    \ ['darkmagenta', 'yellow'],
-"    \ ['Darkblue',    'magenta'],
-"    \ ['darkgreen',   'lightblue'],
-"    \ ['darkcyan',    'SeaGreen3'],
-"    \ ['darkred',     'DarkOrange3'],
-"    \ ['red',         'firebrick3'],
-"    \ ]
-"let g:rbpt_max = 16
-"let g:rbpt_loadcmd_toggle = 0
-""自動ON
-"au VimEnter * RainbowParenthesesToggle
-"au Syntax * RainbowParenthesesLoadRound			"()
-"au Syntax * RainbowParenthesesLoadSquare		"[]
-"au Syntax * RainbowParenthesesLoadBraces		"{}
-""au Syntax * RainbowParenthesesLoadChevrons		"<>
-
+let g:clang_cpp_options = '-std=c++14 -stdlib=libc++ --pedantic-errors'
 
 " incsearch.vim
 map /  <Plug>(incsearch-forward)
@@ -264,41 +180,41 @@ nnoremap z/ /
 
 "lightlineの設定
 let g:lightline = {
+  \ 'colorscheme' : 'modified',
       \ 'component': {
       \   'readonly': '%{&readonly?"⭤":""}',
       \    },
       \ 'separator': { 'left': '⮀', 'right': '⮂' },
       \ 'subseparator': { 'left': '⮁', 'right': '⮃' }
       \ }
-      "\ 'colorscheme': 'wombat',
 
-"autocmd FileType c,cpp inoremap <buffer>; ;<C-[>==a
 autocmd FileType c,cpp call s:cF()
 function! s:cF()
 	setlocal cindent
 	setlocal cinkeys +=;
 endfunction
-autocmd FileType c          setlocal sw=4 sts=4 ts=4 et
-autocmd FileType cpp        setlocal sw=4 sts=4 ts=4 et
-autocmd FileType css        setlocal sw=2 sts=2 ts=2 et
-autocmd FileType html       setlocal sw=2 sts=2 ts=2 et
-autocmd FileType java       setlocal sw=2 sts=2 ts=2 et
-autocmd FileType javascript setlocal sw=2 sts=2 ts=2 et
-autocmd FileType perl       setlocal sw=4 sts=4 ts=4 et
-autocmd FileType php        setlocal sw=4 sts=4 ts=4 et
-autocmd FileType python     setlocal sw=4 sts=4 ts=4 et
-autocmd FileType ruby       setlocal sw=2 sts=2 ts=2 et
-autocmd FileType sh         setlocal sw=4 sts=4 ts=4 et
-autocmd FileType vim        setlocal sw=2 sts=2 ts=2 et
-autocmd FileType xhtml      setlocal sw=2 sts=2 ts=2 et
-autocmd FileType xml        setlocal sw=2 sts=2 ts=2 et
-autocmd FileType zsh        setlocal sw=2 sts=2 ts=2 et
+"autocmd FileType c          setlocal sw=4 sts=4 ts=4 et
+"autocmd FileType cpp        setlocal sw=4 sts=4 ts=4 et
+"autocmd FileType css        setlocal sw=2 sts=2 ts=2 et
+"autocmd FileType html       setlocal sw=2 sts=2 ts=2 et
+"autocmd FileType java       setlocal sw=2 sts=2 ts=2 et
+"autocmd FileType javascript setlocal sw=2 sts=2 ts=2 et
+"autocmd FileType perl       setlocal sw=4 sts=4 ts=4 et
+"autocmd FileType php        setlocal sw=4 sts=4 ts=4 et
+"autocmd FileType python     setlocal sw=4 sts=4 ts=4 et
+"autocmd FileType ruby       setlocal sw=2 sts=2 ts=2 et
+"autocmd FileType sh         setlocal sw=4 sts=4 ts=4 et
+"autocmd FileType vim        setlocal sw=2 sts=2 ts=2 et
+"autocmd FileType xhtml      setlocal sw=2 sts=2 ts=2 et
+"autocmd FileType xml        setlocal sw=2 sts=2 ts=2 et
+"autocmd FileType zsh        setlocal sw=2 sts=2 ts=2 et
 
 
 "lilypond用
 if has('mac')
 	filetype off
-	set runtimepath+=/Applications/LilyPond.app/Contents/Resources/share/lilypond/current/vim
+  set runtimepath+=/Applications/LilyPond.app/Contents/Resources/share/lilypond/current/vim
+  set nocursorline
 	filetype on
 endif
 

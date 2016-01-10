@@ -25,3 +25,6 @@ export PATH=$PATH:~/bin
 if [ -d /usr/local/Cellar/qt5 ] ; then
 	export PATH="/usr/local/Cellar/qt5/5.5.1/bin:$PATH"
 fi
+
+export PYTHONPATH=/usr/local/lib/python2.7/site-packages/
+export BYOBU_PREFIX=$(brew --prefix)

@@ -2,7 +2,7 @@ if has('gui_macvim')
 	"set guifont=Ricty\ Diminished\ for\ Powerline:h17
 	"set guifont=Ricty\ Diminished\ Regular:h17
 	set guifont=Ricty\ Diminished\ Regular\ for\ Powerline:h17
-	set transparency=10	"透明度
+	set transparency=0	"透明度
 
 	colorscheme mydesert
 	if has('multi_byte_ime')
@@ -11,6 +11,7 @@ if has('gui_macvim')
 	endif
 	set columns=130
 	set lines=40
+  set cmdheight=1
 
 	" GUI版でのtab等の文字色指定
 	highlight SpecialKey guifg=black

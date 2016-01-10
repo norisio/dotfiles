@@ -14,6 +14,9 @@ fi
 source ~/.zplug/zplug
 ### plug-ins
 zplug "norisio/zsh_onvim"
+zplug "zsh-users/zsh-completions"
+zplug "junegunn/fzf-bin", as:command, from:gh-r, file:fzf
+zplug "b4b4r07/enhancd", of:enhancd.sh
 ### 
 if ! zplug check --verbose; then
     printf "Install? [y/N]: "
@@ -77,30 +80,30 @@ RPROMPT="%K{green}%F{black}$(onvim)%f%k"
 # 空欄Enterでls
 function my_enter {
 if [[ -n "$BUFFER" ]]; then
-	builtin zle .accept-line
-	return 0
+  builtin zle .accept-line
+  return 0
 fi
 #if [ "$WIDGET" != "$LASTWIDGET" ]; then
 #	MY_ENTER_COUNT=0
 #fi
 case $[MY_ENTER_COUNT] in
-	0)
-		BUFFER=" ls"
-		MY_ENTER_COUNT=1
-		;;
-	1)
-		BUFFER=" ls -a"
-		#if [[ -d .svn ]]; then
-		#	BUFFER=" svn status"
-		#elif git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
-		#	BUFFER=" git status -sb"
-		#fi
-		#unset MY_ENTER_COUNT
-		MY_ENTER_COUNT=0
-		;;
-	*)
-		unset MY_ENTER_COUNT
-		;;
+  0)
+    BUFFER=" ls"
+    MY_ENTER_COUNT=1
+    ;;
+  1)
+    BUFFER=" ls -a"
+    #if [[ -d .svn ]]; then
+    #	BUFFER=" svn status"
+    #elif git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    #	BUFFER=" git status -sb"
+    #fi
+    #unset MY_ENTER_COUNT
+    MY_ENTER_COUNT=0
+    ;;
+  *)
+    unset MY_ENTER_COUNT
+    ;;
 esac
 #BUFFER=" ls"
 builtin zle .accept-line
@@ -123,7 +126,6 @@ cdup() {
 zle -N cdup
 bindkey '\^' cdup
 
-
 #個別のアプリケーションの初期化
 
 
@@ -142,28 +144,32 @@ alias vi='vim'
 alias :q='exit'
 case "${OSTYPE}" in
 	linux*)
-		alias ls='ls --color'
+		alias ls='ls -F --color=auto'
 		alias a-upd='sudo apt-get update'
 		alias a-upg='sudo apt-get upgrade'
 		alias a-ins='sudo apt-get install '
 		;;
 	darwin*)
+    alias ls='ls -G -F'
 		alias getown='sudo chown -R $(whoami):admin /usr/local'
 		alias readlink='greadlink'
 		alias awk='gawk'
 		alias sed='gsed'
 		alias date='gdate'
-		alias sshs='ssh seimitsu2@pepc2.local -p60022'
 		;;
 esac
 alias gc="git commit"
 alias gs="git status"
 alias gp="git push"
-
 alias -g L="| less"
 alias -g G='| grep'
-
 alias -s py='python3 '
+alias of='cd ~/repository/of'
+
+mkcd() {
+  mkdir $1
+  cd $1
+  return 0
+}
 
 echo Welcome to `zsh --version` !
-alias of='cd ~/repository/ofx'
