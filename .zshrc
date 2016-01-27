@@ -13,16 +13,15 @@ if [ ! -f ~/.zplug/zplug ]; then
 fi
 source ~/.zplug/zplug
 ### plug-ins
-zplug "norisio/zsh_onvim"
 zplug "zsh-users/zsh-completions"
 zplug "junegunn/fzf-bin", as:command, from:gh-r, file:fzf
 zplug "b4b4r07/enhancd", of:enhancd.sh
 ### 
 if ! zplug check --verbose; then
-    printf "Install? [y/N]: "
-    if read -q; then
-        echo; zplug install
-    fi
+  printf "Install? [y/N]: "
+  if read -q; then
+    echo; zplug install
+  fi
 fi
 zplug load
 
@@ -31,7 +30,7 @@ zplug load
 
 # 補完機能を有効にする
 autoload -Uz compinit
-compinit
+compinit -C
 
 ########################################
 # Zsh オプション
@@ -63,18 +62,31 @@ zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
 
-# プロンプトにWorking directory名
+# プロンプト
 autoload colors
 colors
+
+autoload -Uz vcs_info
+setopt prompt_subst
+zstyle ':vcs_info:git:*' check-for-changes true
+zstyle ':vcs_info:git:*' stagedstr "%F{magenta}!"
+zstyle ':vcs_info:git:*' unstagedstr "%F{red}+"
+zstyle ':vcs_info:*' formats "%F{green}%c%u[⭠%b]%f"
+zstyle ':vcs_info:*' actionformats '[%b|%a]'
+precmd () {vcs_info}
+
 PROMPT="
-%{${fg[yellow]}%}%~%{${reset_color}%} 
+%{${fg[yellow]}%}%~%{${reset_color}%} "
+PROMPT=$PROMPT'${vcs_info_msg_0_}'
+PROMPT=$PROMPT"
 [%n]$ "
 PROMPT2='[%n]> ' 
 setopt transient_rprompt
 
-#source ~/repository/zsh_onvim/zsh_onvim.zsh
-#RPROMPT="%{${bg[green]}%}%{${fg[white]}%}$(onvim)%{${reset_color}%}"
-RPROMPT="%K{green}%F{black}$(onvim)%f%k"
+RPROMPT=""
+
+[[ -n "$VIMRUNTIME" ]] && \
+  RPROMPT="%{${bg[green]}%}%{${fg[black]}%}  Running on Vim  %{${reset_color}%} $RPROMPT"
 
 
 # 空欄Enterでls
@@ -114,14 +126,14 @@ bindkey '^m' my_enter
 # ^でcd ..する
 # # http://shakenbu.org/yanagi/d/?date=20120301
 cdup() {
-	if [ -z "$BUFFER" ]; then
-		echo
-		cd ..
-		call_precmd
-		zle reset-prompt
-	else
-		zle self-insert '^'
-	fi
+  if [ -z "$BUFFER" ]; then
+    echo
+    cd ..
+    call_precmd
+    zle reset-prompt
+  else
+    zle self-insert '^'
+  fi
 }
 zle -N cdup
 bindkey '\^' cdup
@@ -143,20 +155,20 @@ alias zp='vim ~/.zprofile'
 alias vi='vim'
 alias :q='exit'
 case "${OSTYPE}" in
-	linux*)
-		alias ls='ls -F --color=auto'
-		alias a-upd='sudo apt-get update'
-		alias a-upg='sudo apt-get upgrade'
-		alias a-ins='sudo apt-get install '
-		;;
-	darwin*)
+  linux*)
+    alias ls='ls -F --color=auto'
+    alias a-upd='sudo apt-get update'
+    alias a-upg='sudo apt-get upgrade'
+    alias a-ins='sudo apt-get install '
+    ;;
+  darwin*)
     alias ls='ls -G -F'
-		alias getown='sudo chown -R $(whoami):admin /usr/local'
-		alias readlink='greadlink'
-		alias awk='gawk'
-		alias sed='gsed'
-		alias date='gdate'
-		;;
+    alias getown='sudo chown -R $(whoami):admin /usr/local'
+    alias readlink='greadlink'
+    alias awk='gawk'
+    alias sed='gsed'
+    alias date='gdate'
+    ;;
 esac
 alias gc="git commit"
 alias gs="git status"
@@ -173,3 +185,9 @@ mkcd() {
 }
 
 echo Welcome to `zsh --version` !
+
+#時間計測を呼び出す
+if (which zprof > /dev/null) ;then
+  zprof | less
+fi
+
