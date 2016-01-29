@@ -1,4 +1,5 @@
 #!/bin/sh
+DIR=`pwd`
 if ! which git >/dev/null 2>&1;then
   if which apt-get >dev/null 2>&1;then
     echo "Installing git..."
@@ -22,17 +23,24 @@ else
   echo "vim found"
 fi
 
-cd $HOME
-if [ ! -d $HOME/dotfiles ];then
+cd $DIR
+if [ ! -d $DIR/dotfiles ];then
   echo "Cloning dotfiles repository..."
   git clone https://github.com/norisio/dotfiles.git
 else
   echo "repository dotfiles found"
 fi
-ln -si $HOME/dotfiles/.vimrc
-ln -si $HOME/dotfiles/.gvimrc
+ln -si $DIR/dotfiles/.vimrc $HOME/.vimrc
+ln -si $DIR/dotfiles/.gvimrc $HOME/.gvimrc
 
-if [ ! -d $HOME/neobundle.vim ]; then
+if [ ! -d $HOME/.vim ]; then
+echo "Creating .vim directory..."
+mkdir $HOME/.vim
+echo "Creating vimbackup directory..."
+mkdir $HOME/vimbackup
+fi
+
+if [ ! -d $DIR/neobundle.vim ]; then
   echo "Installing Neobundle..."
   curl https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/install.sh > install.sh 2>/dev/null
   sh ./install.sh
