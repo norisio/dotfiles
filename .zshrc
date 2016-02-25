@@ -14,8 +14,9 @@ fi
 source ~/.zplug/zplug
 ### plug-ins
 zplug "zsh-users/zsh-completions"
-zplug "junegunn/fzf-bin", as:command, from:gh-r, file:fzf
+zplug "junegunn/fzf-bin", as:command, from:gh-r, of:"*${(L)$(uname -s)}*amd64*", file:fzf
 zplug "b4b4r07/enhancd", of:enhancd.sh
+zplug "mrowa44/emojify", as:command
 ### 
 if ! zplug check --verbose; then
   printf "Install? [y/N]: "
@@ -184,12 +185,22 @@ mkcd() {
   return 0
 }
 
-echo Welcome to `zsh --version` !
+case "${OSTYPE}" in
+  darwin*)
+    fvim(){ mdfind $1|fzf -m |xargs -o vim -p }
+    ;;
+esac
+
+#不明コマンドのサジェスチョン
+if [ -f /etc/zsh_command_not_found ] ; then
+  source /etc/zsh_command_not_found
+fi
 
 #時間計測を呼び出す
 if (which zprof > /dev/null) ;then
   zprof | less
 fi
 
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+echo Welcome to `zsh --version` !

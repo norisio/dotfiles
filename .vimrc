@@ -1,7 +1,6 @@
-"問題点: 
-"visualモードの選択範囲がわかりづらくなった
-"vim-quickrunとかeasymotionのwindow越しとか動かない
 set nocompatible
+set encoding=utf-8
+set fileencodings=iso-2022-jp,cp932,sjis,euc-jp,utf-8
 set tabstop=2
 set softtabstop=2
 set shiftwidth=2
@@ -118,6 +117,7 @@ NeoBundle 'haya14busa/incsearch.vim'
 NeoBundle 'easymotion/vim-easymotion'
 "NeoBundle 'simeji/winresizer' "<C-e> hjkl <CR>
 NeoBundle 'itchyny/lightline.vim'
+NeoBundle 'thinca/vim-quickrun'
 
 "Texobject
 NeoBundle 'tpope/vim-surround' "(v) S' (n)ys{op}' ds' cs')
@@ -131,8 +131,9 @@ if executable("clang")
   NeoBundle 'osyo-manga/vim-marching'
 endif
 
+"LaTeX
+NeoBundle 'lervag/vimtex'
 
-"NeoBundle 'w0ng/vim-hybrid'
 
 
 call neobundle#end()
@@ -216,14 +217,6 @@ let g:marching#clang_command#options = {
       \}
 let g:marching_debug = 1
 
-"quickrun
-nmap <Leader>r <Plug>(quickrun)
-let s:hooks = neobundle#get_hooks("vim-quickrun")
-function! s:hooks.on_source(bundle)
-  let g:quickrun_config = {
-      \ "*": {"runner": "remote/vimproc"},
-      \ }
-endfunction
 
 " incsearch.vim
 map /  <Plug>(incsearch-forward)
@@ -239,8 +232,7 @@ let g:lightline = {
       \    },
       \ 'active':{
       \ 'left': [ [ 'mode', 'paste' ],
-      \           [ 'readonly', 'filename', 'modified' ] ,
-      \           [ 'absolutepath' ] ],
+      \           [ 'readonly', 'filename', 'modified' ] ],
       \  },
       \ 'separator': { 'left': '⮀', 'right': '⮂' },
       \ 'subseparator': { 'left': '⮁', 'right': '⮃' },
@@ -278,7 +270,49 @@ let s:p.normal.warning = [ [ 'gray1', 'yellow' ] ]
 let g:lightline#colorscheme#default#palette
       \= lightline#colorscheme#fill(s:p)
 
+"quickrun
+let g:quickrun_config = get(g:, 'quickrun_config', {})
+let g:quickrun_config._ = {
+      \ 'runner'    : 'vimproc',
+      \ 'runner/vimproc/updatetime' : 60,
+      \ 'outputter' : 'error',
+      \ 'outputter/error/success' : 'buffer',
+      \ 'outputter/error/error'   : 'quickfix',
+      \ 'outputter/buffer/split'  : ':rightbelow 8sp',
+      \ 'outputter/buffer/close_on_empty' : 1,
+      \ }
+let g:quickrun_no_default_key_mappings = 1
+nnoremap <Space>r :cclose<CR>:write<CR>:QuickRun -mode n<CR>
+xnoremap <Space>r :<C-U>cclose<CR>:write<CR>gv:QuickRun -mode v<CR>
+nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
+
 "言語ごとの設定
+
+"LaTeX
+augroup LaTeXft
+  autocmd!
+  autocmd BufRead,BufNewFile *.tex set filetype=tex
+augroup END
+let g:quickrun_config['tex'] = {
+\ 'command' : 'latexmk',
+\ 'outputter' : 'error',
+\ 'outputter/error/success' : 'null',
+\ 'outputter/error/error' : 'quickfix',
+\ 'srcfile' : expand("%"),
+\ 'cmdopt': '-pdfdvi',
+\ 'hook/sweep/files' : [
+\                      '%S:p:r.aux',
+\                      '%S:p:r.bbl',
+\                      '%S:p:r.blg',
+\                      '%S:p:r.dvi',
+\                      '%S:p:r.fdb_latexmk',
+\                      '%S:p:r.fls',
+\                      '%S:p:r.log',
+\                      '%S:p:r.out'
+\                      ],
+\ 'exec': ['%c %o %a %s', 'open %s:r.pdf'],
+\}
+
 ""C++
 augroup CppIndent
   autocmd!
