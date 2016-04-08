@@ -1,6 +1,6 @@
 set nocompatible
 set encoding=utf-8
-set fileencodings=iso-2022-jp,cp932,sjis,euc-jp,utf-8
+set fileencodings=ucs-bom,iso-2022-jp,cp932,sjis,euc-jp,utf-8
 set tabstop=2
 set softtabstop=2
 set shiftwidth=2
@@ -29,7 +29,7 @@ set backspace=start,eol,indent
 
 set backupdir=$HOME/vimbackup
 set undodir=$HOME/vimbackup
-set directory=$HOME/vimbackup
+set directory=$HOME/vimbackup//
 
 set hidden
 set autoread
@@ -135,10 +135,14 @@ endif
 NeoBundle 'lervag/vimtex'
 
 
+"ColorScheme
+NeoBundle 'cocopon/iceberg.vim'
 
 call neobundle#end()
 
-colorscheme desert
+colorscheme iceberg
+hi clear Visual
+hi Visual ctermbg=150 ctermfg=234
 
 " Required:
 filetype plugin indent on
@@ -322,7 +326,10 @@ function! s:cF()
 	setlocal cindent
 	setlocal cinkeys +=;
 endfunction
-"autocmd FileType c          setlocal sw=4 sts=4 ts=4 et
+let g:quickrun_config.cpp={
+      \ 'command':  'g++',
+      \ 'cmdopt':   '-std=c++11'
+      \ }
 
 ""python
 augroup PythonIndent
@@ -350,6 +357,6 @@ let g:EasyMotion_smartcase = 1
 "nmap Y <Plug>(operator-flashy)$
 
 
-if has("autocmd")
-  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
-endif
+"if has("autocmd")
+"  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+"endif

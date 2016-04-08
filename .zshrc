@@ -171,13 +171,13 @@ case "${OSTYPE}" in
     alias date='gdate'
     ;;
 esac
+alias ga="git add ."
 alias gc="git commit"
 alias gs="git status"
 alias gp="git push"
 alias -g L="| less"
 alias -g G='| grep'
 alias -s py='python3 '
-alias of='cd ~/repository/of'
 
 mkcd() {
   mkdir $1

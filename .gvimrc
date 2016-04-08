@@ -6,10 +6,10 @@ if has('gui_macvim')
 
   set background=dark
   if has('multi_byte_ime')
-    highlight Cursor guifg=#000d18 guibg=#8faf9f gui=bold
-    highlight CursorIM guifg=NONE guibg=#ecbcbc
+    highlight! Cursor guifg=#000d18 guibg=#8faf9f gui=bold
+    highlight! CursorIM guifg=NONE guibg=#ecbcbc
   endif
-  set columns=130
+  set columns=110
   set lines=40
   set cmdheight=1
 
