@@ -1,9 +1,9 @@
 #!/bin/sh
 DIR=`pwd`
 if ! which git >/dev/null 2>&1;then
-  if which apt-get >dev/null 2>&1;then
+  if which apt >/dev/null 2>&1;then
     echo "Installing git..."
-    sudo apt-get install git -y
+    sudo apt install git -y
   else
     echo "not found git but couldn't install."
   fi
@@ -13,9 +13,9 @@ fi
 
 
 if ! which vim >/dev/null 2>&1;then
-  if which apt-get >dev/null 2>&1;then
+  if which apt >/dev/null 2>&1;then
     echo "Installing vim..."
-    sudo apt-get install vim -y
+    sudo apt install vim -y
   else
     echo "not found vim but couldn't install."
   fi
@@ -23,15 +23,20 @@ else
   echo "vim found"
 fi
 
-cd $DIR
-if [ ! -d $DIR/dotfiles ];then
-  echo "Cloning dotfiles repository..."
-  git clone https://github.com/norisio/dotfiles.git
+if ! which curl >/dev/null 2>&1;then
+  if which apt >/dev/null 2>&1;then
+    echo "Installing vim..."
+    sudo apt install curl -y
+  else
+    echo "not found curl but couldn't install."
+  fi
 else
-  echo "repository dotfiles found"
+  echo "curl found"
 fi
-ln -si $DIR/dotfiles/.vimrc $HOME/.vimrc
-ln -si $DIR/dotfiles/.gvimrc $HOME/.gvimrc
+
+cd $DIR
+ln -si $DIR/.vimrc $HOME/.vimrc
+ln -si $DIR/.gvimrc $HOME/.gvimrc
 
 if [ ! -d $HOME/.vim ]; then
 echo "Creating .vim directory..."

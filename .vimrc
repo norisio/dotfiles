@@ -1,6 +1,6 @@
 set nocompatible
 set encoding=utf-8
-set fileencodings=ucs-bom,iso-2022-jp,cp932,sjis,euc-jp,utf-8
+set fileencodings=utf-8
 set tabstop=2
 set softtabstop=2
 set shiftwidth=2
@@ -133,6 +133,9 @@ endif
 
 "LaTeX
 NeoBundle 'lervag/vimtex'
+
+"golang
+NeoBundle 'fatih/vim-go'
 
 
 "ColorScheme
@@ -343,7 +346,16 @@ if has('mac')
 	filetype off
   set runtimepath+=/Applications/LilyPond.app/Contents/Resources/share/lilypond/current/vim
 	filetype on
+  augroup lilypondmac
+    autocmd FileType lilypond let g:neocomplete#sources#dictionary#dictionaries = { 'lilypond' : $HOME . '/repository/ly_dic/dic.txt' }
+  augroup END
 endif
+if isdirectory(expand('~/lilypond'))
+	filetype off
+  set runtimepath+=$HOME/lilypond/usr/share/lilypond/current/vim
+	filetype on
+endif
+
 
 "easymotion
 let g:EasyMotion_do_mapping = 0

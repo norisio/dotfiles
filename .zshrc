@@ -8,22 +8,16 @@ setopt hist_ignore_dups
 setopt share_history
 
 # zplug
-if [ ! -f ~/.zplug/zplug ]; then
-  curl -fLo ~/.zplug/zplug --create-dirs git.io/zplug
+if [ ! -f ~/.zplug/README.md ]; then
+  curl -sL zplug.sh/installer | zsh
 fi
-source ~/.zplug/zplug
+source ~/.zplug/init.zsh
 ### plug-ins
 zplug "zsh-users/zsh-completions"
-zplug "junegunn/fzf-bin", as:command, from:gh-r, of:"*${(L)$(uname -s)}*amd64*", file:fzf
-zplug "b4b4r07/enhancd", of:enhancd.sh
+zplug "junegunn/fzf-bin", as:command, from:gh-r, use:"*${(L)$(uname -s)}*amd64*", rename-to:fzf
+zplug "b4b4r07/enhancd", use:enhancd.sh
 zplug "mrowa44/emojify", as:command
 ### 
-if ! zplug check --verbose; then
-  printf "Install? [y/N]: "
-  if read -q; then
-    echo; zplug install
-  fi
-fi
 zplug load
 
 ########################################
