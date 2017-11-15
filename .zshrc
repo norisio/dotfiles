@@ -31,6 +31,7 @@ zplug load
 # 補完機能を有効にする
 autoload -Uz compinit
 compinit -C
+zstyle ':completion:*:default' menu select=2
 
 ########################################
 # Zsh オプション
@@ -47,6 +48,16 @@ setopt print_eight_bit
 
 # 訂正
 setopt correct
+
+# --prefix=のあとでも補完
+setopt magic_equal_subst
+
+#setopt always_last_prompt
+
+########################################
+# キーバインド
+
+bindkey "^I" menu-complete
 
 #######################################
 # Color
