@@ -20,6 +20,6 @@ if [[ ! -n $TMUX && $- == *l* ]]; then
   fi
 fi
 
-if [[ -f '$HOME/.zprofile.local' ]]; then
-  source '$HOME/.zprofile.local'
+if [[ -f $HOME/.zprofile.local ]]; then
+  source $HOME/.zprofile.local
 fi
