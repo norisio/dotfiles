@@ -59,9 +59,6 @@ if has('mac')
   "augroup END
 endif
 
-if !isdirectory(expand('~/vimbackup'))
-  execute '!mkdir -p $HOME/vimbackup'
-endif
 
 let s:dein_dir = expand('~/.cache/dein')
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
@@ -79,7 +76,6 @@ if dein#load_state(s:dein_dir)
   call dein#add('Shougo/dein.vim')
   call dein#add('Shougo/vimproc.vim', {'build': 'make'})
   call dein#add('fatih/vim-go')
-  call dein#add('romainl/Apprentice')
   call dein#end()
 endif
 filetype plugin indent on
@@ -88,5 +84,3 @@ syntax enable
 if dein#check_install()
   call dein#install()
 endif
-
-colorscheme apprentice

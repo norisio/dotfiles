@@ -209,6 +209,9 @@ alias gp="git push"
 alias -g L="| less"
 alias -g G='| grep'
 alias -s py='python3 '
+wolDevubuntuHome(){
+  wakeonlan -p 9104 -i 113.151.215.80 1c:6f:65:22:07:ec
+}
 
 mkcd() {
   mkdir $1
@@ -235,8 +238,8 @@ fi
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 
-if [[ -f "$HOME/.zshrc.local" ]]; then
-  source "$HOME/.zshrc.local" 
+if [[ -f '$HOME/.zshrc.local' ]]; then
+  source '$HOME/.zshrc.local' 
 fi
 
 echo `zsh --version`
