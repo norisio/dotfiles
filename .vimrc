@@ -74,7 +74,6 @@ if dein#load_state(s:dein_dir)
   call dein#begin(s:dein_dir)
 
   call dein#add('Shougo/dein.vim')
-  call dein#add('Shougo/vimproc.vim', {'build': 'make'})
   call dein#add('fatih/vim-go')
   call dein#end()
 endif
