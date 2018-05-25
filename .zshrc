@@ -241,8 +241,8 @@ fi
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 
-if [[ -f '$HOME/.zshrc.local' ]]; then
-  source '$HOME/.zshrc.local' 
+if [[ -f $HOME/.zshrc.local ]]; then
+  source $HOME/.zshrc.local 
 fi
 
 echo `zsh --version`
