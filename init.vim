@@ -62,3 +62,5 @@ endif
 
 set background=dark
 colorscheme lucius
+
+set fillchars=vert:\|
