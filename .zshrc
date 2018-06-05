@@ -88,14 +88,15 @@ zstyle ':vcs_info:*' actionformats '[%b|%a]'
 precmd () {vcs_info}
 
 PROMPT="
+-> \$(echo -n \$?)
 %{${fg[yellow]}%}%~%{${reset_color}%} "
 PROMPT=$PROMPT'${vcs_info_msg_0_}'
 PROMPT=$PROMPT"
 [%n]$ "
-PROMPT2='[%n]> ' 
+PROMPT2='[%n]> '
 setopt transient_rprompt
 
-RPROMPT=""
+RPROMPT="(%*)"
 
 [[ -n "$VIMRUNTIME" ]] && \
   RPROMPT="%{${bg[green]}%}%{${fg[black]}%}  Running on Vim  %{${reset_color}%} $RPROMPT"
