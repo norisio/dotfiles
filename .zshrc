@@ -5,7 +5,7 @@ HISTFILE=~/.zsh_history
 HISTSIZE=1000000
 SAVEHIST=1000000
 setopt hist_ignore_dups
-setopt share_history
+setopt no_share_history
 
 # zplug
 if [ ! -d ~/.zplug ]; then
