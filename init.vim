@@ -49,6 +49,8 @@ if dein#load_state(s:dein_dir)
   let g:deoplete#enable_at_startup = 1
 
   call dein#add('lighttiger2505/gtags.vim')
+  
+  call dein#add('bronson/vim-trailing-whitespace')
 
   call dein#end()
   call dein#save_state()
