@@ -44,6 +44,7 @@ if dein#load_state(s:dein_dir)
 
   call dein#add('Shougo/dein.vim')
   call dein#add('jonathanfilip/vim-lucius')
+  call dein#add('airblade/vim-gitgutter')
 
   call dein#add('Shougo/deoplete.nvim')
   let g:deoplete#enable_at_startup = 1
