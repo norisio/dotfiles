@@ -24,11 +24,6 @@ nnoremap _ j^
 inoremap <C-a> <C-o>0
 inoremap <C-e> <C-o>$
 
-
-let g:python_host_prog = '/Users/nao/.pyenv/versions/neovim2/bin/python'
-let g:python3_host_prog = '/Users/nao/.pyenv/versions/neovim3/bin/python3'
-
-
 let s:dein_dir = expand('~/.config/nvim/dein')
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
 
