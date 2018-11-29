@@ -24,6 +24,8 @@ nnoremap _ j^
 inoremap <C-a> <C-o>0
 inoremap <C-e> <C-o>$
 
+nnoremap <silent> * "wyiw:<C-u>let @/="\\\<<C-r>w\\\>"<CR>
+
 let s:dein_dir = expand('~/.config/nvim/dein')
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
 
