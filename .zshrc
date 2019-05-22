@@ -15,11 +15,11 @@ source '/home/naoyasakabe/.zplugin/bin/zplugin.zsh'
 autoload -Uz _zplugin
 (( ${+_comps} )) && _comps[zplugin]=_zplugin
 
-zplugin load "zsh-users/zsh-completions"
+zplugin ice wait'!0'; zplugin load "zsh-users/zsh-completions"
+zplugin ice wait'!0'; zplugin light zdharma/fast-syntax-highlighting
 zplugin ice from"gh-r" as"program"; zplugin load junegunn/fzf-bin
 zplugin ice src"init.sh"; zplugin load "b4b4r07/enhancd"
 
-zplugin light zdharma/fast-syntax-highlighting
 
 
 ########################################
@@ -229,19 +229,6 @@ case "${OSTYPE}" in
     fvim(){ mdfind $1|fzf -m |xargs -o vim -p }
     ;;
 esac
-
-#不明コマンドのサジェスチョン
-if [ -f /etc/zsh_command_not_found ] ; then
-  source /etc/zsh_command_not_found
-fi
-
-#時間計測を呼び出す
-if (which zprof > /dev/null) ;then
-  zprof | less
-fi
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 
 if [[ -f $HOME/.zshrc.local ]]; then
   source $HOME/.zshrc.local
