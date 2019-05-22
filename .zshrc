@@ -83,7 +83,7 @@ setopt prompt_subst
 zstyle ':vcs_info:git:*' check-for-changes true
 zstyle ':vcs_info:git:*' stagedstr "%F{magenta}!"
 zstyle ':vcs_info:git:*' unstagedstr "%F{red}+"
-zstyle ':vcs_info:*' formats "%F{green}%c%u[⭠%b]%f"
+zstyle ':vcs_info:*' formats "%F{green}%c%u[%b]%f"
 zstyle ':vcs_info:*' actionformats '[%b|%a]'
 precmd () {vcs_info}
 
@@ -118,7 +118,7 @@ case $[MY_ENTER_COUNT] in
     MY_ENTER_COUNT=1
     ;;
   1)
-    BUFFER=" ls -a"
+    BUFFER=" ls -l"
     #if [[ -d .svn ]]; then
     #	BUFFER=" svn status"
     #elif git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
@@ -208,14 +208,18 @@ case "${OSTYPE}" in
 esac
 alias ga="git add"
 alias gc="git commit"
+alias gd="git diff"
+alias gdc="git diff --cached"
 alias gs="git status"
 alias gp="git push"
+alias gf="git fetch -p"
+alias gb="git branch -a"
+alias gco="git checkout"
+alias gr="git reset"
 alias -g L="| less"
 alias -g G='| grep'
 alias -s py='python3 '
-wolDevubuntuHome(){
-  wakeonlan -p 9104 -i 113.151.215.80 1c:6f:65:22:07:ec
-}
+alias xargsvim='xargs sh -c '\''vim $* < /dev/tty'\'''
 
 mkcd() {
   mkdir $1

@@ -1,19 +1,20 @@
 
 #tmux
-PERCOL=/Users/nao/.zplug/bin/fzf
+PERCOL=$HOME/.zplug/bin/fzf
+TMUX_BIN=tmux
 if [[ ! -n $TMUX && $- == *l* ]]; then
   # get the IDs
-  ID="`tmux list-sessions`"
+  ID="`$TMUX_BIN list-sessions`"
   if [[ -z "$ID" ]]; then
-    tmux new-session
+    $TMUX_BIN new-session
   else
     create_new_session="Create New Session"
     ID="$ID\n${create_new_session}:"
     ID="`echo $ID | $PERCOL | cut -d: -f1`"
     if [[ "$ID" = "${create_new_session}" ]]; then
-      tmux new-session
+      $TMUX_BIN new-session
     elif [[ -n "$ID" ]]; then
-      tmux attach-session -t "$ID"
+      $TMUX_BIN attach-session -t "$ID"
     else
       :  # Start terminal normally
     fi
