@@ -7,23 +7,20 @@ SAVEHIST=1000000
 setopt hist_ignore_dups
 setopt no_share_history
 
-# zplug
-if [ ! -d ~/.zplug ]; then
-  curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh| zsh
+### install zplugin automatically
+if [ ! -d ~/.zplugin ]; then
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zplugin/master/doc/install.sh)"
 fi
-source ~/.zplug/init.zsh
-### plug-ins
-zplug "zsh-users/zsh-completions"
-zplug "junegunn/fzf-bin", as:command, from:gh-r, use:"*${(L)$(uname -s)}*amd64*", rename-to:fzf
-zplug "b4b4r07/enhancd", use:init.sh
-zplug "mrowa44/emojify", as:command
-if ! zplug check --verbose; then
-  printf "Install? [y/N]: "
-  if read -q; then
-    echo; zplug install
-  fi
-fi 
-zplug load
+source '/home/naoyasakabe/.zplugin/bin/zplugin.zsh'
+autoload -Uz _zplugin
+(( ${+_comps} )) && _comps[zplugin]=_zplugin
+
+zplugin load "zsh-users/zsh-completions"
+zplugin ice from"gh-r" as"program"; zplugin load junegunn/fzf-bin
+zplugin ice src"init.sh"; zplugin load "b4b4r07/enhancd"
+
+zplugin light zdharma/fast-syntax-highlighting
+
 
 ########################################
 # Zsh 補完
@@ -247,7 +244,7 @@ fi
 
 
 if [[ -f $HOME/.zshrc.local ]]; then
-  source $HOME/.zshrc.local 
+  source $HOME/.zshrc.local
 fi
 
 echo `zsh --version`
