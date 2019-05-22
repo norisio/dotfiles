@@ -12,7 +12,11 @@ set wildmenu
 set incsearch
 set inccommand=split
 set smartcase
-set nohls
+set hls
+
+set listchars=tab:>-
+set list
+
 
 nnoremap Y y$
 
@@ -76,3 +80,6 @@ augroup auto_comment_off
   autocmd BufEnter * setlocal formatoptions-=r
   autocmd BufEnter * setlocal formatoptions-=o
 augroup END
+
+" for alternate-lite
+command! VS :normal :<C-u>AV<CR><C-w>L
