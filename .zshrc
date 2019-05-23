@@ -11,7 +11,7 @@ setopt no_share_history
 if [ ! -d ~/.zplugin ]; then
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zplugin/master/doc/install.sh)"
 fi
-source '/home/naoyasakabe/.zplugin/bin/zplugin.zsh'
+source "$HOME/.zplugin/bin/zplugin.zsh"
 autoload -Uz _zplugin
 (( ${+_comps} )) && _comps[zplugin]=_zplugin
 
