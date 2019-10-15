@@ -1,5 +1,7 @@
 export LANG=ja_JP.UTF-8
 
+export WORDCHARS="_-"
+
 # Zsh ヒストリの設定
 HISTFILE=~/.zsh_history
 HISTSIZE=1000000
