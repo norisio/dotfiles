@@ -206,7 +206,7 @@ case "${OSTYPE}" in
     ;;
 esac
 alias ga="git add"
-alias gc="git commit"
+alias gc="git commit --verbose"
 alias gd="git diff"
 alias gdc="git diff --cached"
 alias gs="git status"
