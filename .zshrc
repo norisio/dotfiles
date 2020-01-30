@@ -9,18 +9,16 @@ SAVEHIST=1000000
 setopt hist_ignore_dups
 setopt no_share_history
 
-### install zplugin automatically
-if [ ! -d ~/.zplugin ]; then
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zplugin/master/doc/install.sh)"
+### install zinit automatically
+if [ ! -d ~/.zinit ]; then
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
 fi
-source "$HOME/.zplugin/bin/zplugin.zsh"
-autoload -Uz _zplugin
-(( ${+_comps} )) && _comps[zplugin]=_zplugin
+source "$HOME/.zinit/bin/zinit.zsh"
 
-zplugin ice wait'!0'; zplugin load "zsh-users/zsh-completions"
-zplugin ice wait'!0'; zplugin light zdharma/fast-syntax-highlighting
-zplugin ice from"gh-r" as"program"; zplugin load junegunn/fzf-bin
-zplugin ice src"init.sh"; zplugin load "b4b4r07/enhancd"
+zinit ice wait'!0'; zinit load "zsh-users/zsh-completions"
+zinit ice wait'!0'; zinit light zdharma/fast-syntax-highlighting
+zinit ice from"gh-r" as"program"; zinit load junegunn/fzf-bin
+zinit ice src"init.sh"; zinit load "b4b4r07/enhancd"
 
 
 
