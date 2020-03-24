@@ -1,6 +1,6 @@
 
 #tmux
-PERCOL=~/.zplugin/plugins/junegunn---fzf-bin/fzf
+PERCOL=$HOME/.zinit/plugins/junegunn---fzf-bin/fzf
 TMUX_BIN=tmux
 if [[ ! -n $TMUX && $- == *l* ]]; then
   # get the IDs
