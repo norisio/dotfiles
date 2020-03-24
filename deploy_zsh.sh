@@ -1,9 +1,12 @@
 #!/bin/sh
-cd $HOME/dotfiles
+HERE=$(cd $(dirname $0); pwd)
 if [ ! -f $HOME/.zshrc ];then
-  ln -s `pwd`/.zshrc $HOME/.zshrc
+  ln -s $HERE/.zshrc $HOME/.zshrc
 fi
 if [ ! -f $HOME/.zprofile ];then
-  ln -s `pwd`/.zprofile $HOME/.zprofile
+  ln -s $HERE/.zprofile $HOME/.zprofile
 fi
 echo "created symbolic link to .zshrc, .zprofile"
+touch $HOME/.zshrc.local
+touch $HOME/.zprofile.local
+echo "created .locals"
