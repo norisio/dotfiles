@@ -63,7 +63,6 @@ if dein#load_state(s:dein_dir)
   call dein#add('kana/vim-textobj-user')
   call dein#add('sgur/vim-textobj-parameter')
   call dein#add('ctrlpvim/ctrlp.vim')
-  call dein#add('rhysd/clever-f.vim')
 
   call dein#end()
   call dein#save_state()
