@@ -72,6 +72,7 @@ endif
 filetype plugin indent on
 syntax enable
 
+let g:dein#auto_recache = 1
 if dein#check_install()
   call dein#install()
 endif
