@@ -27,6 +27,8 @@ nnoremap k gk
 nnoremap _ j^
 inoremap <C-a> <C-o>0
 inoremap <C-e> <C-o>$
+nnoremap <Tab> gt
+nnoremap <S-Tab> gT
 
 nnoremap <silent> * :<C-u>let @/="\\\<<C-r><C-w>\\\>" \| set hls<CR>
 
