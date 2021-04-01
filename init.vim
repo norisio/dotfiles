@@ -37,8 +37,10 @@ augroup memorycursor
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 augroup END
 
-let s:dein_dir = expand('~/.config/nvim/dein')
+let s:nvim_config_dir = expand('~/.config/nvim')
+let s:dein_dir = s:nvim_config_dir . '/dein'
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
+let g:dein#auto_recache = 1
 
 if &runtimepath !~# '/dein.vim'
   if !isdirectory(s:dein_repo_dir)
@@ -49,22 +51,13 @@ endif
 
 if dein#load_state(s:dein_dir)
   call dein#begin(s:dein_dir)
+  let s:toml = s:nvim_config_dir . '/nvim-plugins.toml'
+  let s:lazytoml = s:nvim_config_dir . '/nvim-plugins-lazy.toml'
 
   call dein#add('Shougo/dein.vim')
-  call dein#add('jonathanfilip/vim-lucius')
-  call dein#add('airblade/vim-gitgutter')
 
-  call dein#add('Shougo/deoplete.nvim')
-  let g:deoplete#enable_at_startup = 1
-
-  call dein#add('lighttiger2505/gtags.vim')
-  
-  call dein#add('bronson/vim-trailing-whitespace')
-  call dein#add('LucHermitte/lh-vim-lib')
-  call dein#add('LucHermitte/alternate-lite')
-  call dein#add('kana/vim-textobj-user')
-  call dein#add('sgur/vim-textobj-parameter')
-  call dein#add('ctrlpvim/ctrlp.vim')
+  call dein#load_toml(s:toml, {'lazy': 0})
+  call dein#load_toml(s:lazytoml, {'lazy': 1})
 
   call dein#end()
   call dein#save_state()
@@ -72,7 +65,6 @@ endif
 filetype plugin indent on
 syntax enable
 
-let g:dein#auto_recache = 1
 if dein#check_install()
   call dein#install()
 endif

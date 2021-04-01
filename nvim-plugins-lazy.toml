@@ -1,0 +1,17 @@
+[[plugins]]
+repo = 'neoclide/coc.nvim'
+on_i = 1
+
+[[plugins]]
+repo = 'rust-lang/rust.vim'
+on_ft = ['rust']
+hook_add = 'let g:rustfmt_autosave = 1'
+
+[[plugins]]
+repo = 'kana/vim-textobj-user'
+on_i = 1
+
+[[plugins]]
+repo = 'sgur/vim-textobj-parameter'
+depends = ['vim-textobj-user']
+on_i = 1

@@ -1,0 +1,19 @@
+[[plugins]]
+repo = 'jonathanfilip/vim-lucius'
+hook_post_source = 'colorscheme lucius'
+
+[[plugins]]
+repo = 'airblade/vim-gitgutter'
+
+[[plugins]]
+repo = 'bronson/vim-trailing-whitespace'
+
+[[plugins]]
+repo = 'LucHermitte/lh-vim-lib'
+
+[[plugins]]
+repo = 'LucHermitte/alternate-lite'
+depends = ['lh-vim-lib']
+
+[[plugins]]
+repo = 'ctrlpvim/ctrlp.vim'
