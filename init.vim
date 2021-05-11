@@ -24,6 +24,8 @@ set scroll=10
 set scrolloff=6
 nnoremap j gj
 nnoremap k gk
+vnoremap j gj
+vnoremap k gk
 nnoremap _ j^
 inoremap <C-a> <C-o>0
 inoremap <C-e> <C-o>$
