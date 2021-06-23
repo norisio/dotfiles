@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 HERE=$(cd $(dirname $0); pwd)
 if [ ! -f $HOME/.zshrc ];then
   ln -s $HERE/.zshrc $HOME/.zshrc
