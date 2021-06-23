@@ -19,7 +19,9 @@ zinit ice wait'!0'; zinit load "zsh-users/zsh-completions"
 zinit ice wait'!0'; zinit light zdharma/fast-syntax-highlighting
 zinit ice from"gh-r" as"program"; zinit load junegunn/fzf-bin
 zinit ice src"init.sh"; zinit load "b4b4r07/enhancd"
-
+zinit ice from"gh-r" as"program" cp"bin/exa->bin/ls" pick"bin/ls"; zinit load ogham/exa
+zinit ice from"gh-r" as"program" src"mcfly.zsh"; zinit load cantino/mcfly
+zinit ice from"gh-r" as"program" cp"delta-*/delta->delta" atload"! git config --global pager.diff delta && git config --global delta.features \"line-numbers decorations\" && git config --global delta.syntax-theme \"Monokai Extended\" && git config --global delta.navigate true && git config --global interactive.diffFilter \"delta --color-only\""; zinit load dandavison/delta
 
 
 ########################################
