@@ -6,6 +6,7 @@ set laststatus=2
 set autoindent
 set smarttab
 set smartindent
+set formatoptions-=cro
 
 set wildmenu
 
