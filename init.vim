@@ -1,12 +1,15 @@
 set termguicolors
-set fencs=utf-8
+set fencs=utf-8,sjis
 set ts=4 sts=4 sw=4 et
 
 set laststatus=2
 set autoindent
 set smarttab
 set smartindent
-set formatoptions-=cro
+augroup c_cpp_parenindent
+  autocmd!
+  autocmd FileType c,cpp setlocal cindent cinoptions=(1s
+augroup END
 
 set wildmenu
 
@@ -73,7 +76,6 @@ if dein#check_install()
 endif
 
 set background=dark
-colorscheme lucius
 
 set fillchars=vert:\|
 
