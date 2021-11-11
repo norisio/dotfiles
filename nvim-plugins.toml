@@ -1,6 +1,12 @@
 [[plugins]]
 repo = 'jonathanfilip/vim-lucius'
-hook_post_source = 'colorscheme lucius'
+hook_add = '''
+    set background=dark
+    augroup MyColorScheme
+        au!
+        au VimEnter * nested colorscheme lucius
+    augroup END
+'''
 
 [[plugins]]
 repo = 'airblade/vim-gitgutter'
@@ -17,3 +23,75 @@ depends = ['lh-vim-lib']
 
 [[plugins]]
 repo = 'ctrlpvim/ctrlp.vim'
+
+[[plugins]]
+repo='vim-denops/denops.vim'
+
+[[plugins]]
+repo='vim-skk/denops-skkeleton.vim'
+hook_add='''
+    imap <C-j> <Plug>(skkeleton-toggle)
+    cmap <C-j> <Plug>(skkeleton-toggle)
+'''
+hook_source='''
+    let g:skkeleton#debug=v:true
+    call skkeleton#config({
+        \'eggLikeNewline':v:true,
+        \})
+'''
+
+[[plugins]]
+repo='Shougo/ddc.vim'
+depends=['denops.vim']
+hook_source='''
+    call ddc#custom#patch_global('sources', ['buffer', 'file'])
+    call ddc#custom#patch_global('sourceOptions', {
+        \ '_': {
+        \   'matchers': ['matcher_head'],
+        \   'sorters': ['sorter_rank']
+        \ },
+        \ 'buffer': {
+        \   'mark': 'buf',
+        \   'matchers': ['matcher_fuzzy'],
+        \   'sorters': ['sorter_fuzzy']
+        \ },
+        \ 'file': {
+        \   'mark': 'file',
+        \   'isVolatile': v:true,
+        \   'forceCompletionPattern': '\S/\S*',
+        \ }
+        \ })
+    call ddc#custom#patch_global('sourceParams', {
+        \ 'buffer': {
+        \   'requireSameFiletype': v:false,
+        \   'fromAltBuf': v:true,
+        \   'forceCollect': v:false,
+        \ },
+        \ })
+    call ddc#custom#patch_global('completionMenu', 'pum.vim')
+    call ddc#enable()
+'''
+
+[[plugins]]
+repo = 'matsui54/ddc-buffer'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'LumaKernel/ddc-file'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo='Shougo/ddc-matcher_head'
+on_source='ddc.vim'
+
+[[plugins]]
+repo='Shougo/ddc-sorter_rank'
+on_source='ddc.vim'
+
+[[plugins]]
+repo='tani/ddc-fuzzy'
+on_source='ddc.vim'
+
+[[plugins]]
+repo='Shougo/pum.vim'
+on_source='ddc.vim'
