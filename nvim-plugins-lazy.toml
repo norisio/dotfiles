@@ -1,8 +1,4 @@
 [[plugins]]
-repo = 'neoclide/coc.nvim'
-on_i = 1
-
-[[plugins]]
 repo = 'rust-lang/rust.vim'
 on_ft = ['rust']
 hook_add = 'let g:rustfmt_autosave = 1'
