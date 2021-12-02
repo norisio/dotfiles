@@ -1,9 +1,4 @@
 [[plugins]]
-repo = 'rust-lang/rust.vim'
-on_ft = ['rust']
-hook_add = 'let g:rustfmt_autosave = 1'
-
-[[plugins]]
 repo = 'kana/vim-textobj-user'
 on_i = 1
 
@@ -15,3 +10,65 @@ on_i = 1
 [[plugins]]
 repo = 'cespare/vim-toml'
 on_ft = ['toml']
+
+[[plugins]]
+repo='Shougo/ddc.vim'
+depends=['denops.vim', 'pum.vim']
+on_event = 'InsertEnter'
+hook_source='''
+    call ddc#custom#patch_global('sources', ['buffer', 'file'])
+    call ddc#custom#patch_global('sourceOptions', {
+        \ '_': {
+        \   'matchers': ['matcher_head'],
+        \   'sorters': ['sorter_rank']
+        \ },
+        \ 'buffer': {
+        \   'mark': 'buf',
+        \   'matchers': ['matcher_fuzzy'],
+        \   'sorters': ['sorter_fuzzy']
+        \ },
+        \ 'file': {
+        \   'mark': 'file',
+        \   'isVolatile': v:true,
+        \   'forceCompletionPattern': '\S/\S*',
+        \ }
+        \ })
+    call ddc#custom#patch_global('sourceParams', {
+        \ 'buffer': {
+        \   'requireSameFiletype': v:false,
+        \   'fromAltBuf': v:true,
+        \   'forceCollect': v:false,
+        \ },
+        \ })
+
+    " pum vim
+    call ddc#custom#patch_global('completionMenu', 'pum.vim')
+    inoremap <C-n>   <Cmd>call pum#map#insert_relative(+1)<CR>
+    inoremap <C-p>   <Cmd>call pum#map#insert_relative(-1)<CR>
+    inoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
+    inoremap <C-e>   <Cmd>call pum#map#cancel()<CR>
+    call ddc#enable()
+'''
+
+[[plugins]]
+repo = 'matsui54/ddc-buffer'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'LumaKernel/ddc-file'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo='Shougo/ddc-matcher_head'
+on_source='ddc.vim'
+
+[[plugins]]
+repo='Shougo/ddc-sorter_rank'
+on_source='ddc.vim'
+
+[[plugins]]
+repo='tani/ddc-fuzzy'
+on_source='ddc.vim'
+
+[[plugins]]
+repo='Shougo/pum.vim'
