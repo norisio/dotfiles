@@ -16,7 +16,7 @@ repo='Shougo/ddc.vim'
 depends=['denops.vim', 'pum.vim']
 on_event = 'InsertEnter'
 hook_source='''
-    call ddc#custom#patch_global('sources', ['buffer', 'file'])
+    call ddc#custom#patch_global('sources', ['around', 'buffer', 'file'])
     call ddc#custom#patch_global('sourceOptions', {
         \ '_': {
         \   'matchers': ['matcher_head'],
@@ -24,6 +24,11 @@ hook_source='''
         \ },
         \ 'buffer': {
         \   'mark': 'buf',
+        \   'matchers': ['matcher_fuzzy'],
+        \   'sorters': ['sorter_fuzzy']
+        \ },
+        \ 'around': {
+        \   'mark': 'ar',
         \   'matchers': ['matcher_fuzzy'],
         \   'sorters': ['sorter_fuzzy']
         \ },
@@ -57,6 +62,10 @@ on_source = 'ddc.vim'
 [[plugins]]
 repo = 'LumaKernel/ddc-file'
 on_source = 'ddc.vim'
+
+[[plugins]]
+repo='Shougo/ddc-around'
+on_source='ddc.vim'
 
 [[plugins]]
 repo='Shougo/ddc-matcher_head'
