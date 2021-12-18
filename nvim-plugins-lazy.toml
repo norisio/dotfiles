@@ -16,7 +16,7 @@ repo='Shougo/ddc.vim'
 depends=['denops.vim', 'pum.vim']
 on_event = 'InsertEnter'
 hook_source='''
-    call ddc#custom#patch_global('sources', ['around', 'buffer', 'file'])
+    call ddc#custom#patch_global('sources', ['around', 'buffer', 'file', 'nvim-lsp'])
     call ddc#custom#patch_global('sourceOptions', {
         \ '_': {
         \   'matchers': ['matcher_head'],
@@ -25,17 +25,23 @@ hook_source='''
         \ 'buffer': {
         \   'mark': 'buf',
         \   'matchers': ['matcher_fuzzy'],
-        \   'sorters': ['sorter_fuzzy']
+        \   'sorters': ['sorter_rank', 'sorter_fuzzy']
         \ },
         \ 'around': {
         \   'mark': 'ar',
         \   'matchers': ['matcher_fuzzy'],
-        \   'sorters': ['sorter_fuzzy']
+        \   'sorters': ['sorter_rank', 'sorter_fuzzy']
         \ },
         \ 'file': {
         \   'mark': 'file',
         \   'isVolatile': v:true,
         \   'forceCompletionPattern': '\S/\S*',
+        \ },
+        \ 'nvim-lsp': {
+        \   'mark': 'lsp',
+        \   'matchers': ['matcher_fuzzy'],
+        \   'sorters': ['sorter_rank', 'sorter_fuzzy'],
+        \   'forceCompletionPattern': '\.\w*|:\w*|->\w*',
         \ }
         \ })
     call ddc#custom#patch_global('sourceParams', {
@@ -44,7 +50,9 @@ hook_source='''
         \   'fromAltBuf': v:true,
         \   'forceCollect': v:false,
         \ },
+        \ 'nvim-lsp': { 'kindLabels': { 'Class': 'c' } }
         \ })
+
 
     " pum vim
     call ddc#custom#patch_global('completionMenu', 'pum.vim')
@@ -81,6 +89,10 @@ on_source='ddc.vim'
 
 [[plugins]]
 repo='Shougo/pum.vim'
+
+[[plugins]]
+repo='Shougo/ddc-nvim-lsp'
+on_source='ddc.vim'
 
 [[plugins]]
 repo='nvim-treesitter/nvim-treesitter'
