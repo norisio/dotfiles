@@ -62,8 +62,6 @@ nnoremap Q <Nop>
 " C-n
 
 let g:mapleader = "\<Space>"
-nnoremap [denite] <Nop>
-nmap <Leader>u [denite]
 
 augroup memorycursor
   autocmd!
