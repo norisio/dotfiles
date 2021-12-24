@@ -57,3 +57,7 @@ lsp_installer.on_server_ready(function(server)
 end)
 EOF
 '''
+
+[[plugins]]
+repo='Shougo/denite.nvim'
+
