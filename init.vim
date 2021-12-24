@@ -22,21 +22,48 @@ set listchars=tab:>-
 set list
 
 
-nnoremap Y y$
-
 set scroll=10
 set scrolloff=6
 nnoremap j gj
 nnoremap k gk
+nnoremap gj j
+nnoremap gk k
 vnoremap j gj
 vnoremap k gk
+vnoremap gj j
+vnoremap gk k
 nnoremap _ j^
 inoremap <C-a> <C-o>0
 inoremap <C-e> <C-o>$
-nnoremap <Tab> gt
-nnoremap <S-Tab> gT
+nnoremap t gt
+nnoremap T gT
 
 nnoremap <silent> * :<C-u>let @/="\\\<<C-r><C-w>\\\>" \| set hls<CR>
+
+" Other remappable strokes in normal mode:
+" +
+" !
+" #
+" &
+" -
+" (
+" )
+" '
+" S
+" X
+" U
+nnoremap Q <Nop>
+" K
+" R
+" C-g
+" C-h
+" C-j
+" C-m
+" C-n
+
+let g:mapleader = "\<Space>"
+nnoremap [denite] <Nop>
+nmap <Leader>u [denite]
 
 augroup memorycursor
   autocmd!
