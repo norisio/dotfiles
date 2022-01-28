@@ -22,6 +22,9 @@ repo = 'LucHermitte/alternate-lite'
 depends = ['lh-vim-lib']
 
 [[plugins]]
+repo = 'ctrlpvim/ctrlp.vim'
+
+[[plugins]]
 repo='vim-denops/denops.vim'
 
 [[plugins]]
@@ -59,7 +62,7 @@ EOF
 
 [[plugins]]
 repo='Shougo/denite.nvim'
-hook_post_source='''
+hook_source='''
     augroup denite_settings_aug
         autocmd!
         autocmd FileType denite call s:denite_my_settings()
@@ -114,9 +117,8 @@ hook_post_source='''
             \ ['git', 'ls-files', '-co', '--exclude-standard'])
 
     " keybindings
-    nnoremap <silent> <C-p>     <Cmd>DeniteProjectDir file/rec<CR>
-
     nnoremap [denite] <Nop>
     nmap <Leader>u [denite]
+    nnoremap <silent> [denite]f     <Cmd>Denite file/rec<CR>
 '''
 
