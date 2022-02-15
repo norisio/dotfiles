@@ -10,19 +10,29 @@ setopt hist_ignore_dups
 setopt no_share_history
 
 ### install zinit automatically
-if [ ! -d ~/.zinit ]; then
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
+ZINIT_DIR="$HOME/.local/share/zinit"
+if [ ! -d $ZINIT_DIR ]; then
+    sh -c "$(curl -fsSL https://git.io/zinit-install)"
 fi
-source "$HOME/.zinit/bin/zinit.zsh"
+source "$ZINIT_DIR/zinit.git/zinit.zsh"
 
 zinit ice wait'!0'; zinit load "zsh-users/zsh-completions"
-zinit ice wait'!0'; zinit light zdharma/fast-syntax-highlighting
+zinit ice wait'!0'; zinit light zdharma-continuum/fast-syntax-highlighting
 zinit ice from"gh-r" as"program"; zinit load junegunn/fzf-bin
 zinit ice src"init.sh"; zinit load "b4b4r07/enhancd"
-zinit ice from"gh-r" as"program" cp"bin/exa->bin/ls" pick"bin/ls"; zinit load ogham/exa
-zinit ice from"gh-r" as"program" src"mcfly.zsh"; zinit load cantino/mcfly
+zinit ice wait"2" lucid from"gh-r" as"program" mv"bin/exa -> ls"; zinit light ogham/exa
+zinit ice lucid wait"0a" from"gh-r" as"program" atload'eval "$(mcfly init zsh)"'; zinit light cantino/mcfly
 zinit ice from"gh-r" as"program" cp"delta-*/delta->delta" atload"! git config --global pager.diff delta && git config --global delta.features \"line-numbers decorations\" && git config --global delta.syntax-theme \"Monokai Extended\" && git config --global delta.navigate true && git config --global interactive.diffFilter \"delta --color-only\""; zinit load dandavison/delta
 
+# Load a few important annexes, without Turbo
+# (this is currently required for annexes)
+zinit light-mode for \
+    zdharma-continuum/zinit-annex-as-monitor \
+    zdharma-continuum/zinit-annex-bin-gem-node \
+    zdharma-continuum/zinit-annex-patch-dl \
+    zdharma-continuum/zinit-annex-rust
+
+### End of Zinit's installer chunk
 
 ########################################
 # Zsh 補完
@@ -227,12 +237,6 @@ mkcd() {
   cd $1
   return 0
 }
-
-case "${OSTYPE}" in
-  darwin*)
-    fvim(){ mdfind $1|fzf -m |xargs -o vim -p }
-    ;;
-esac
 
 if [[ -f $HOME/.zshrc.local ]]; then
   source $HOME/.zshrc.local
