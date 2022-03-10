@@ -5,9 +5,13 @@ XDG_NVIM_DIR=$HOME/.config/nvim
 mkdir -p $XDG_NVIM_DIR
 echo "created $XDG_NVIM_DIR"
 
-ln -s $HERE/init.vim $XDG_NVIM_DIR/init.vim
-echo "created symbolic link to init.vim"
-ln -s $HERE/nvim-plugins.toml $XDG_NVIM_DIR/nvim-plugins.toml
-echo "created symbolic link to nvim-plugins.toml"
-ln -s $HERE/nvim-plugins-lazy.toml $XDG_NVIM_DIR/nvim-plugins-lazy.toml
-echo "created symbolic link to nvim-plugins-lazy.toml"
+
+function link() {
+    ln -s "$HERE/$1" "$XDG_NVIM_DIR/$1"
+    echo "created symbolic link to $1"
+}
+
+link init.vim
+link nvim-plugins.toml
+link nvim-plugins-lazy.toml
+link ddu.toml
