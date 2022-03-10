@@ -1,4 +1,14 @@
 [[plugins]]
+repo = 'kana/vim-textobj-user'
+
+[[plugins]]
+repo = 'sgur/vim-textobj-parameter'
+depends = ['vim-textobj-user']
+
+[[plugins]]
+repo = 'tyru/caw.vim'
+
+[[plugins]]
 repo = 'jonathanfilip/vim-lucius'
 hook_add = '''
     set background=dark
