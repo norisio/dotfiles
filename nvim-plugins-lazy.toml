@@ -1,13 +1,4 @@
 [[plugins]]
-repo = 'kana/vim-textobj-user'
-on_i = 1
-
-[[plugins]]
-repo = 'sgur/vim-textobj-parameter'
-depends = ['vim-textobj-user']
-on_i = 1
-
-[[plugins]]
 repo = 'cespare/vim-toml'
 on_ft = ['toml']
 
