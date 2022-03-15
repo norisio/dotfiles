@@ -7,10 +7,18 @@ hook_add = '''
 hook_source = '''
 call ddu#custom#patch_global({
     \   'ui': 'ff',
-    \   'sources': [{'name': 'file_rec', 'params': {}}],
+    \   'sources': [
+    \     {'name': 'file_rec', 'params': {}},
+    \     {'name': 'rg', 'params': {}},
+    \   ],
     \   'sourceOptions': {
     \     '_': {
-    \       'matchers': ['matcher_substring'],
+    \       'matchers': ['matcher_fzf'],
+    \     },
+    \   },
+    \   'sourceParams': {
+    \     'rg': {
+    \       'args': ['--column', '--no-heading', '--color', 'never', '--json'],
     \     },
     \   },
     \   'kindOptions': {
@@ -23,6 +31,11 @@ call ddu#custom#patch_global({
     \       'startFilter': v:true,
     \     }
     \   },
+    \   'filterParams': {
+    \     'matcher_fzf': {
+    \       'highlightMatched': 'Search',
+    \     }
+    \   },
     \ })
 '''
 
@@ -33,11 +46,14 @@ on_source = 'ddu.vim'
 ddu-ff = '''
 nnoremap <buffer><silent> <CR> <Cmd>call ddu#ui#ff#do_action('itemAction')<CR>
 nnoremap <buffer><silent> q <Cmd>call ddu#ui#ff#do_action('quit')<CR>
+nnoremap <buffer> <C-c> <Cmd>call ddu#ui#ff#do_action('quit')<CR>
 '''
 ddu-ff-filter = '''
 inoremap <buffer> <CR> <Esc><Cmd>close<CR>
+inoremap <buffer> <C-c> <Esc><Cmd>close<CR><Cmd>call ddu#ui#ff#do_action('quit')<CR>
 nnoremap <buffer> <CR> <Cmd>close<CR>
 nnoremap <buffer><silent> q <Cmd>close<CR>
+nnoremap <buffer> <C-c> <Cmd>close<CR><Cmd>call ddu#ui#ff#do_action('quit')<CR>
 '''
 
 [[plugins]]
@@ -45,7 +61,15 @@ repo = 'Shougo/ddu-source-file_rec'
 on_source = 'ddu.vim'
 
 [[plugins]]
+repo = 'shun/ddu-source-rg'
+on_source = 'ddu.vim'
+
+[[plugins]]
 repo = 'Shougo/ddu-filter-matcher_substring'
+on_source = 'ddu.vim'
+
+[[plugins]]
+repo = 'yuki-yano/ddu-filter-fzf'
 on_source = 'ddu.vim'
 
 [[plugins]]
