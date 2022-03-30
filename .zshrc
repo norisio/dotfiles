@@ -187,7 +187,6 @@ bindkey '_' __my_popd
 
 
 #alias
-alias s='ssh'
 alias l='ls'
 alias ll='ls -lh'
 alias lah='ls -lah'
@@ -195,43 +194,22 @@ alias la='ls -a'
 alias tree='tree -N'
 alias vs='vim ~/.vimrc'
 alias nvs='vim ~/.config/nvim/init.vim'
-alias gvs='vim ~/.gvimrc'
 alias zs='vim ~/.zshrc'
 alias zsl='vim ~/.zshrc.local'
 alias zp='vim ~/.zprofile'
 alias zpl='vim ~/.zprofile.local'
 alias vi='vim'
-alias :q='exit'
-case "${OSTYPE}" in
-  linux*)
-    alias ls='ls -F --color=auto'
-    ;;
-  darwin*)
-    alias ls='gls -F --color=auto'
-    alias getown='sudo chown -R $(whoami):admin /usr/local'
-    alias readlink='greadlink'
-    #alias awk='gawk'
-    alias sed='gsed'
-    alias date='gdate'
-    alias reat='reattach-to-user-namespace'
-    alias shuf='gshuf'
-    ;;
-esac
 alias ga="git add"
 alias gc="git commit --verbose"
 alias gd="git diff"
 alias gdc="git diff --cached"
 alias gs="git status"
-alias gp="git push"
 alias gf="git fetch -p"
 alias gb="git branch -a"
 alias gco="git checkout"
 alias gsw="git switch"
 alias grs="git restore"
 alias gr="git reset"
-alias -g L="| less"
-alias -g G='| grep'
-alias -s py='python3 '
 alias xargsvim='xargs sh -c '\''vim $* < /dev/tty'\'''
 
 mkcd() {
