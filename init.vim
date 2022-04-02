@@ -68,6 +68,15 @@ augroup memorycursor
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 augroup END
 
+function! FindGitRoot()
+    let command_result = system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
+    if strlen(command_result) > 0
+        return command_result
+    else
+        return "."
+    endif
+endfunction
+
 let s:nvim_config_dir = expand('~/.config/nvim')
 let s:dein_dir = s:nvim_config_dir . '/dein'
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
