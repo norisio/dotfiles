@@ -59,10 +59,40 @@ nnoremap <buffer> <C-c> <Cmd>close<CR><Cmd>call ddu#ui#ff#do_action('quit')<CR>
 [[plugins]]
 repo = 'Shougo/ddu-source-file_rec'
 on_source = 'ddu.vim'
+hook_add = '''
+    command! DduFileRec call <SID>ddu_file_rec()
+    function! s:ddu_file_rec() abort
+      let l:project_root = FindGitRoot()
+      call ddu#start({
+            \   'sources': [{
+            \     'name': 'file_rec',
+            \     'options': {'path': l:project_root},
+            \   }],
+            \ })
+    endfunction
+'''
 
 [[plugins]]
 repo = 'shun/ddu-source-rg'
 on_source = 'ddu.vim'
+hook_add = '''
+    command! DduRgLive call <SID>ddu_rg_live()
+    function! s:ddu_rg_live() abort
+      let l:project_root = FindGitRoot()
+      call ddu#start({
+            \   'volatile': v:true,
+            \   'sources': [{
+            \     'name': 'rg',
+            \     'params': {'path': l:project_root},
+            \     'options': {'matchers': []},
+            \   }],
+            \   'uiParams': {'ff': {
+            \     'ignoreEmpty': v:false,
+            \     'autoResize': v:false,
+            \   }},
+            \ })
+    endfunction
+'''
 
 [[plugins]]
 repo = 'Shougo/ddu-filter-matcher_substring'
@@ -75,3 +105,13 @@ on_source = 'ddu.vim'
 [[plugins]]
 repo = 'Shougo/ddu-kind-file'
 on_source = 'ddu.vim'
+
+[[plugins]]
+repo = 'Shougo/ddu-commands.vim'
+on_source = 'ddu.vim'
+hook_add = '''
+     nnoremap [ddu] <Nop>
+     nmap <Leader>u [ddu]
+     nnoremap <silent> [ddu]p     <Cmd>DduFileRec<CR>
+     nnoremap <silent> [ddu]g     <Cmd>DduRgLive<CR>
+'''
