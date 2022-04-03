@@ -44,15 +44,21 @@ repo = 'Shougo/ddu-ui-ff'
 on_source = 'ddu.vim'
 [plugins.ftplugin]
 ddu-ff = '''
+nnoremap <buffer> i <Cmd>call ddu#ui#ff#do_action('openFilterWindow')<CR>
+nnoremap <buffer><silent> <CR> <Cmd>call ddu#ui#ff#do_action('itemAction')<CR>
 nnoremap <buffer><silent> <CR> <Cmd>call ddu#ui#ff#do_action('itemAction')<CR>
 nnoremap <buffer><silent> q <Cmd>call ddu#ui#ff#do_action('quit')<CR>
 nnoremap <buffer> <C-c> <Cmd>call ddu#ui#ff#do_action('quit')<CR>
+nnoremap <buffer><silent> <C-s> <Cmd>call ddu#ui#ff#do_action('itemAction', {'name': 'open', 'params': {'command': 'split'}})<CR>
 nnoremap <buffer><silent> <C-v> <Cmd>call ddu#ui#ff#do_action('itemAction', {'name': 'open', 'params': {'command': 'vsplit'}})<CR>
 nnoremap <buffer><silent> <C-t> <Cmd>call ddu#ui#ff#do_action('itemAction', {'name': 'open', 'params': {'command': 'tabedit'}})<CR>
 '''
 ddu-ff-filter = '''
 inoremap <buffer> <CR> <Esc><Cmd>close<CR>
 inoremap <buffer> <C-c> <Esc><Cmd>close<CR><Cmd>call ddu#ui#ff#do_action('quit')<CR>
+inoremap <buffer> <C-s> <Esc><Cmd>close<CR><Cmd>call ddu#ui#ff#do_action('itemAction', {'name': 'open', 'params': {'command': 'split'}})<CR>
+inoremap <buffer> <C-v> <Esc><Cmd>close<CR><Cmd>call ddu#ui#ff#do_action('itemAction', {'name': 'open', 'params': {'command': 'vsplit'}})<CR>
+inoremap <buffer> <C-t> <Esc><Cmd>close<CR><Cmd>call ddu#ui#ff#do_action('itemAction', {'name': 'open', 'params': {'command': 'tabedit'}})<CR>
 nnoremap <buffer> <CR> <Cmd>close<CR>
 nnoremap <buffer><silent> q <Cmd>close<CR>
 nnoremap <buffer> <C-c> <Cmd>close<CR><Cmd>call ddu#ui#ff#do_action('quit')<CR>
@@ -97,6 +103,20 @@ hook_add = '''
 '''
 
 [[plugins]]
+repo = 'shun/ddu-source-buffer'
+on_source = 'ddu.vim'
+hook_add = '''
+    command! DduBuffer call <SID>ddu_buffer()
+    function! s:ddu_buffer() abort
+      call ddu#start({
+            \   'sources': [{
+            \     'name': 'buffer'
+            \   }]
+            \ })
+    endfunction
+'''
+
+[[plugins]]
 repo = 'Shougo/ddu-filter-matcher_substring'
 on_source = 'ddu.vim'
 
@@ -114,6 +134,8 @@ on_source = 'ddu.vim'
 hook_add = '''
      nnoremap [ddu] <Nop>
      nmap <Leader>u [ddu]
+     nnoremap <silent> <C-p>      <Cmd>DduFileRec<CR>
      nnoremap <silent> [ddu]p     <Cmd>DduFileRec<CR>
      nnoremap <silent> [ddu]g     <Cmd>DduRgLive<CR>
+     nnoremap <silent> [ddu]b     <Cmd>DduBuffer<CR>
 '''
