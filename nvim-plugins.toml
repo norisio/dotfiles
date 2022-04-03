@@ -32,9 +32,6 @@ repo = 'LucHermitte/alternate-lite'
 depends = ['lh-vim-lib']
 
 [[plugins]]
-repo = 'ctrlpvim/ctrlp.vim'
-
-[[plugins]]
 repo='vim-denops/denops.vim'
 
 [[plugins]]
