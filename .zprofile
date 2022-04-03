@@ -1,3 +1,4 @@
+export LANG=ja_JP.UTF-8
 
 #tmux
 PERCOL=$HOME/.zinit/plugins/junegunn---fzf-bin/fzf
