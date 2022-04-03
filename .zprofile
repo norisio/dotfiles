@@ -1,7 +1,7 @@
 export LANG=ja_JP.UTF-8
 
 #tmux
-PERCOL=$HOME/.zinit/plugins/junegunn---fzf-bin/fzf
+PERCOL=$HOME/.local/share/zinit/plugins/junegunn---fzf-bin/fzf
 TMUX_BIN=tmux
 if [[ ! -n $TMUX && $- == *l* ]]; then
   # get the IDs

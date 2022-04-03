@@ -22,26 +22,60 @@ set listchars=tab:>-
 set list
 
 
-nnoremap Y y$
-
 set scroll=10
 set scrolloff=6
 nnoremap j gj
 nnoremap k gk
+nnoremap gj j
+nnoremap gk k
 vnoremap j gj
 vnoremap k gk
+vnoremap gj j
+vnoremap gk k
 nnoremap _ j^
 inoremap <C-a> <C-o>0
 inoremap <C-e> <C-o>$
-nnoremap <Tab> gt
-nnoremap <S-Tab> gT
+nnoremap t gt
+nnoremap T gT
 
 nnoremap <silent> * :<C-u>let @/="\\\<<C-r><C-w>\\\>" \| set hls<CR>
+
+" Other remappable strokes in normal mode:
+" +
+" !
+" #
+" &
+" -
+" (
+" )
+" '
+" S
+" X
+" U
+nnoremap Q <Nop>
+" K
+" R
+" C-g
+" C-h
+" C-j
+" C-m
+" C-n
+
+let g:mapleader = "\<Space>"
 
 augroup memorycursor
   autocmd!
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 augroup END
+
+function! FindGitRoot()
+    let command_result = system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
+    if strlen(command_result) > 0
+        return command_result
+    else
+        return "."
+    endif
+endfunction
 
 let s:nvim_config_dir = expand('~/.config/nvim')
 let s:dein_dir = s:nvim_config_dir . '/dein'
@@ -59,11 +93,13 @@ if dein#load_state(s:dein_dir)
   call dein#begin(s:dein_dir)
   let s:toml = s:nvim_config_dir . '/nvim-plugins.toml'
   let s:lazytoml = s:nvim_config_dir . '/nvim-plugins-lazy.toml'
+  let s:ddu_toml = s:nvim_config_dir . '/ddu.toml'
 
   call dein#add('Shougo/dein.vim')
 
   call dein#load_toml(s:toml, {'lazy': 0})
   call dein#load_toml(s:lazytoml, {'lazy': 1})
+  call dein#load_toml(s:ddu_toml, {'lazy': 1})
 
   call dein#end()
   call dein#save_state()
