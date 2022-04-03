@@ -100,6 +100,22 @@ hook_add = '''
             \   }},
             \ })
     endfunction
+
+    command! DduRgCursorWord call <SID>ddu_rg_cursorword()
+    function! s:ddu_rg_cursorword() abort
+      let l:project_root = FindGitRoot()
+      call ddu#start({
+            \   'sources': [{
+            \     'name': 'rg',
+            \     'params': {'path': l:project_root, 'input': expand('<cword>')},
+            \   }],
+            \   'uiParams': {'ff': {
+            \     'ignoreEmpty': v:false,
+            \     'autoResize': v:false,
+            \     'startFilter': v:false,
+            \   }},
+            \ })
+    endfunction
 '''
 
 [[plugins]]
@@ -137,5 +153,6 @@ hook_add = '''
      nnoremap <silent> <C-p>      <Cmd>DduFileRec<CR>
      nnoremap <silent> [ddu]p     <Cmd>DduFileRec<CR>
      nnoremap <silent> [ddu]g     <Cmd>DduRgLive<CR>
+     nnoremap <silent> [ddu]*     <Cmd>DduRgCursorWord<CR>
      nnoremap <silent> [ddu]b     <Cmd>DduBuffer<CR>
 '''
