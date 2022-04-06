@@ -21,6 +21,8 @@ set hls
 set listchars=tab:>-
 set list
 
+set signcolumn=yes
+
 
 set scroll=10
 set scrolloff=6
