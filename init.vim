@@ -71,9 +71,10 @@ augroup memorycursor
 augroup END
 
 function! FindGitRoot()
-    let command_result = system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
-    if strlen(command_result) > 0
-        return command_result
+    let l:finddir_result = finddir('.git', ';')
+    let l:len = strlen(finddir_result)
+    if l:len > 0
+        return finddir_result[0:(l:len-5)]
     else
         return "."
     endif
