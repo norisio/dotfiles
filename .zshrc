@@ -25,6 +25,13 @@ alias ls=exa
 zinit ice lucid wait"0a" from"gh-r" as"program" atload'eval "$(mcfly init zsh)"'; zinit light cantino/mcfly
 zinit ice from"gh-r" as"program" cp"delta-*/delta->delta" atload"! git config --global pager.diff delta && git config --global delta.features \"line-numbers decorations\" && git config --global delta.syntax-theme \"Monokai Extended\" && git config --global delta.navigate true && git config --global interactive.diffFilter \"delta --color-only\""; zinit load dandavison/delta
 zinit ice from"gh-r" as"program" mv"ripgrep-* -> ripgrep" pick"ripgrep/rg"; zinit load BurntSushi/ripgrep
+zinit load "agkozak/agkozak-zsh-prompt"
+    export AGKOZAK_PROMPT_DIRTRIM=0
+    export AGKOZAK_BLANK_LINES=1
+    export AGKOZAK_LEFT_PROMPT_ONLY=1
+    export AGKOZAK_COLORS_PATH=yellow
+    export AGKOZAK_COLORS_BRANCH_STATUS=green
+    export AGKOZAK_CUSTOM_SYMBOLS=( '[div]' '[behind]' '[ahead]' '+' 'x' '!' '[rename]' ' ' '[stash]')
 
 # Load a few important annexes, without Turbo
 # (this is currently required for annexes)
@@ -88,30 +95,6 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 # プロンプト
 autoload colors
 colors
-
-autoload -Uz vcs_info
-setopt prompt_subst
-zstyle ':vcs_info:git:*' check-for-changes true
-zstyle ':vcs_info:git:*' stagedstr "%F{magenta}!"
-zstyle ':vcs_info:git:*' unstagedstr "%F{red}+"
-zstyle ':vcs_info:*' formats "%F{green}%c%u[%b]%f"
-zstyle ':vcs_info:*' actionformats '[%b|%a]'
-precmd () {vcs_info}
-
-PROMPT="
--> \$(echo -n \$?)
-%{${fg[yellow]}%}%~%{${reset_color}%} "
-PROMPT=$PROMPT'${vcs_info_msg_0_}'
-PROMPT=$PROMPT"
-[%n]$ "
-PROMPT2='[%n]> '
-setopt transient_rprompt
-
-RPROMPT="(%*)"
-
-[[ -n "$VIMRUNTIME" ]] && \
-  RPROMPT="%{${bg[green]}%}%{${fg[black]}%}  Running on Vim  %{${reset_color}%} $RPROMPT"
-
 
 # 空欄Enterでls
 setopt hist_ignore_space
@@ -182,8 +165,6 @@ __my_popd() {
 zle -N __my_popd
 bindkey '_' __my_popd
 
-#個別のアプリケーションの初期化
-
 
 
 #alias
@@ -223,3 +204,4 @@ if [[ -f $HOME/.zshrc.local ]]; then
 fi
 
 echo `zsh --version`
+### End of Zinit's installer chunk
