@@ -74,7 +74,11 @@ function! FindGitRoot()
     let l:finddir_result = finddir('.git', ';')
     let l:len = strlen(finddir_result)
     if l:len > 0
-        return finddir_result[0:(l:len-5)]
+        if l:finddir_result ==# '.git'
+            return '.'
+        else
+            return finddir_result[0:(l:len-5)]
+        endif
     else
         return "."
     endif
