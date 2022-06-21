@@ -99,3 +99,23 @@ require'nvim-treesitter.configs'.setup {
 EOF
 '''
 merged = '0'
+
+[[plugins]]
+repo='williamboman/nvim-lsp-installer'
+on_event = 'BufRead'
+hook_source='''
+lua <<EOF
+local lsp_installer = require("nvim-lsp-installer")
+
+lsp_installer.setup {}
+
+local lspconfig = require("lspconfig")
+
+local function on_attach(client, bufnr)
+    -- set up buffer keymaps, etc.
+end
+
+lspconfig.clangd.setup { on_attach = on_attach }
+
+EOF
+'''
