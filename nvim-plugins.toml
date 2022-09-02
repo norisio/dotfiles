@@ -16,6 +16,10 @@ hook_add = '''
         au!
         au VimEnter * nested colorscheme lucius
     augroup END
+    augroup LuciusTweak
+        au!
+        au ColorScheme * highlight DiagnosticHint guifg=#7070a0
+    augroup END
 '''
 
 [[plugins]]
@@ -37,6 +41,30 @@ depends = ['lh-vim-lib']
 [[plugins]]
 repo='vim-denops/denops.vim'
 
-[[plugins]]
-repo='neovim/nvim-lspconfig'
+# [[plugins]]
+# repo='neovim/nvim-lspconfig'
 
+[[plugins]]
+repo='neoclide/coc.nvim'
+merged=0
+rev="release"
+hook_add='''
+    set nobackup
+    set nowritebackup
+    set updatetime=300
+    nmap <silent> gd <Plug>(coc-definition)
+    nmap <silent> gy <Plug>(coc-type-definition)
+    " nmap <silent> gi <Plug>(coc-implementation)
+    nmap <silent> gr <Plug>(coc-references)
+
+    nnoremap <silent> K :call ShowDocumentation()<CR>
+    function! ShowDocumentation()
+      if CocAction('hasProvider', 'hover')
+        call CocActionAsync('doHover')
+      else
+        call feedkeys('K', 'in')
+      endif
+    endfunction
+
+    inoremap <silent><expr> <Tab> coc#pum#visible() ? coc#pum#confirm() : "\<Tab>"
+'''
