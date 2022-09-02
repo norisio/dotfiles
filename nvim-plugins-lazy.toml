@@ -2,88 +2,88 @@
 repo = 'cespare/vim-toml'
 on_ft = ['toml']
 
-[[plugins]]
-repo='Shougo/ddc.vim'
-depends=['denops.vim', 'pum.vim']
-on_event = 'InsertEnter'
-hook_source='''
-    call ddc#custom#patch_global('sources', ['around', 'buffer', 'file', 'nvim-lsp'])
-    call ddc#custom#patch_global('sourceOptions', {
-        \ '_': {
-        \   'matchers': ['matcher_head'],
-        \   'sorters': ['sorter_rank']
-        \ },
-        \ 'buffer': {
-        \   'mark': 'buf',
-        \   'matchers': ['matcher_fuzzy'],
-        \   'sorters': ['sorter_rank', 'sorter_fuzzy']
-        \ },
-        \ 'around': {
-        \   'mark': 'ar',
-        \   'matchers': ['matcher_fuzzy'],
-        \   'sorters': ['sorter_rank', 'sorter_fuzzy']
-        \ },
-        \ 'file': {
-        \   'mark': 'file',
-        \   'isVolatile': v:true,
-        \   'forceCompletionPattern': '\S/\S*',
-        \ },
-        \ 'nvim-lsp': {
-        \   'mark': 'lsp',
-        \   'matchers': ['matcher_fuzzy'],
-        \   'sorters': ['sorter_rank', 'sorter_fuzzy'],
-        \   'forceCompletionPattern': '\.\w*|:\w*|->\w*',
-        \ }
-        \ })
-    call ddc#custom#patch_global('sourceParams', {
-        \ 'buffer': {
-        \   'requireSameFiletype': v:false,
-        \   'fromAltBuf': v:true,
-        \   'forceCollect': v:false,
-        \ },
-        \ 'nvim-lsp': { 'kindLabels': { 'Class': 'c' } }
-        \ })
+# [[plugins]]
+# repo='Shougo/ddc.vim'
+# depends=['denops.vim', 'pum.vim']
+# on_event = 'InsertEnter'
+# hook_source='''
+#     call ddc#custom#patch_global('sources', ['around', 'buffer', 'file', 'nvim-lsp'])
+#     call ddc#custom#patch_global('sourceOptions', {
+#         \ '_': {
+#         \   'matchers': ['matcher_head'],
+#         \   'sorters': ['sorter_rank']
+#         \ },
+#         \ 'buffer': {
+#         \   'mark': 'buf',
+#         \   'matchers': ['matcher_fuzzy'],
+#         \   'sorters': ['sorter_rank', 'sorter_fuzzy']
+#         \ },
+#         \ 'around': {
+#         \   'mark': 'ar',
+#         \   'matchers': ['matcher_fuzzy'],
+#         \   'sorters': ['sorter_rank', 'sorter_fuzzy']
+#         \ },
+#         \ 'file': {
+#         \   'mark': 'file',
+#         \   'isVolatile': v:true,
+#         \   'forceCompletionPattern': '\S/\S*',
+#         \ },
+#         \ 'nvim-lsp': {
+#         \   'mark': 'lsp',
+#         \   'matchers': ['matcher_fuzzy'],
+#         \   'sorters': ['sorter_rank', 'sorter_fuzzy'],
+#         \   'forceCompletionPattern': '\.\w*|:\w*|->\w*',
+#         \ }
+#         \ })
+#     call ddc#custom#patch_global('sourceParams', {
+#         \ 'buffer': {
+#         \   'requireSameFiletype': v:false,
+#         \   'fromAltBuf': v:true,
+#         \   'forceCollect': v:false,
+#         \ },
+#         \ 'nvim-lsp': { 'kindLabels': { 'Class': 'c' } }
+#         \ })
+# 
+# 
+#     " pum vim
+#     call ddc#custom#patch_global('completionMenu', 'pum.vim')
+#     inoremap <C-n>   <Cmd>call pum#map#insert_relative(+1)<CR>
+#     inoremap <C-p>   <Cmd>call pum#map#insert_relative(-1)<CR>
+#     inoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
+#     inoremap <C-e>   <Cmd>call pum#map#cancel()<CR>
+#     call ddc#enable()
+# '''
 
-
-    " pum vim
-    call ddc#custom#patch_global('completionMenu', 'pum.vim')
-    inoremap <C-n>   <Cmd>call pum#map#insert_relative(+1)<CR>
-    inoremap <C-p>   <Cmd>call pum#map#insert_relative(-1)<CR>
-    inoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
-    inoremap <C-e>   <Cmd>call pum#map#cancel()<CR>
-    call ddc#enable()
-'''
-
-[[plugins]]
-repo = 'matsui54/ddc-buffer'
-on_source = 'ddc.vim'
-
-[[plugins]]
-repo = 'LumaKernel/ddc-file'
-on_source = 'ddc.vim'
-
-[[plugins]]
-repo='Shougo/ddc-around'
-on_source='ddc.vim'
-
-[[plugins]]
-repo='Shougo/ddc-matcher_head'
-on_source='ddc.vim'
-
-[[plugins]]
-repo='Shougo/ddc-sorter_rank'
-on_source='ddc.vim'
-
-[[plugins]]
-repo='tani/ddc-fuzzy'
-on_source='ddc.vim'
-
-[[plugins]]
-repo='Shougo/pum.vim'
-
-[[plugins]]
-repo='Shougo/ddc-nvim-lsp'
-on_source='ddc.vim'
+# [[plugins]]
+# repo = 'matsui54/ddc-buffer'
+# on_source = 'ddc.vim'
+# 
+# [[plugins]]
+# repo = 'LumaKernel/ddc-file'
+# on_source = 'ddc.vim'
+# 
+# [[plugins]]
+# repo='Shougo/ddc-around'
+# on_source='ddc.vim'
+# 
+# [[plugins]]
+# repo='Shougo/ddc-matcher_head'
+# on_source='ddc.vim'
+# 
+# [[plugins]]
+# repo='Shougo/ddc-sorter_rank'
+# on_source='ddc.vim'
+# 
+# [[plugins]]
+# repo='tani/ddc-fuzzy'
+# on_source='ddc.vim'
+# 
+# [[plugins]]
+# repo='Shougo/pum.vim'
+# 
+# [[plugins]]
+# repo='Shougo/ddc-nvim-lsp'
+# on_source='ddc.vim'
 
 [[plugins]]
 repo='nvim-treesitter/nvim-treesitter'
@@ -100,22 +100,23 @@ EOF
 '''
 merged = '0'
 
-[[plugins]]
-repo='williamboman/nvim-lsp-installer'
-on_event = 'BufRead'
-hook_source='''
-lua <<EOF
-local lsp_installer = require("nvim-lsp-installer")
-
-lsp_installer.setup {}
-
-local lspconfig = require("lspconfig")
-
-local function on_attach(client, bufnr)
-    -- set up buffer keymaps, etc.
-end
-
-lspconfig.clangd.setup { on_attach = on_attach }
-
-EOF
-'''
+# [[plugins]]
+# repo='williamboman/nvim-lsp-installer'
+# on_event = 'BufRead'
+# hook_source='''
+# lua <<EOF
+# local lsp_installer = require("nvim-lsp-installer")
+# 
+# lsp_installer.setup {}
+# 
+# local lspconfig = require("lspconfig")
+# 
+# local function on_attach(client, bufnr)
+#     -- set up buffer keymaps, etc.
+# end
+# 
+# lspconfig.clangd.setup { on_attach = on_attach }
+# lspconfig.jedi_language_server.setup { on_attach = on_attach }
+# 
+# EOF
+# '''
