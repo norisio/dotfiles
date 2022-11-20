@@ -68,3 +68,6 @@ hook_add='''
 
     inoremap <silent><expr> <Tab> coc#pum#visible() ? coc#pum#confirm() : "\<Tab>"
 '''
+
+[[plugins]]
+repo="ctrlpvim/ctrlp.vim"
