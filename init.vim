@@ -106,7 +106,6 @@ if dein#load_state(s:dein_dir)
 
   call dein#load_toml(s:toml, {'lazy': 0})
   call dein#load_toml(s:lazytoml, {'lazy': 1})
-  call dein#load_toml(s:ddu_toml, {'lazy': 1})
 
   call dein#end()
   call dein#save_state()
