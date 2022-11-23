@@ -11,7 +11,5 @@ function link() {
     echo "created symbolic link to $1"
 }
 
-link init.vim
-link nvim-plugins.toml
-link nvim-plugins-lazy.toml
-link ddu.toml
+link init.lua
+link lua
