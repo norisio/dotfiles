@@ -36,6 +36,7 @@ require('packer').startup(function(use)
   use "hrsh7th/nvim-cmp"
   use "hrsh7th/cmp-nvim-lsp"
   use "hrsh7th/cmp-buffer"
+  use 'hrsh7th/cmp-path'
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
@@ -53,6 +54,7 @@ cmp.setup({
   sources = cmp.config.sources({
     { name = "nvim_lsp" },
     { name = "buffer" },
+    { name = "path" },
   }),
   mapping = cmp.mapping.preset.insert({
     ["<C-p>"] = cmp.mapping.select_prev_item(),
