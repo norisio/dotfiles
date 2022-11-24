@@ -27,5 +27,11 @@ for k, v in pairs(options) do
     vim.opt[k] = v
 end
 
+vim.api.nvim_create_autocmd("BufEnter", {
+    group = vim.api.nvim_create_augroup("auto_comment_off", { clear = true }),
+    pattern = "*",
+    command = "setlocal formatoptions-=ro"
+})
+
 require("plugins")
 require("keybind")
