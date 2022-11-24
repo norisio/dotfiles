@@ -6,6 +6,7 @@ local options = {
     tabstop = 4,
     softtabstop = 4,
     shiftwidth = 4,
+    expandtab = true,
     wildmenu = true,
     incsearch = true,
     inccommand = "split",
