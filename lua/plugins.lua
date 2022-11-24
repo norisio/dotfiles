@@ -31,9 +31,37 @@ require('packer').startup(function(use)
 
   -- LSP related
   use 'neovim/nvim-lspconfig'
-  use 'williamboman/mason.nvim'
-  use 'williamboman/mason-lspconfig.nvim'
-  use "hrsh7th/nvim-cmp"
+  use {'williamboman/mason.nvim',
+    config = function()
+      require("mason").setup()
+    end
+  }
+  use {'williamboman/mason-lspconfig.nvim',
+    config = function()
+      require("mason-lspconfig").setup()
+    end
+  }
+  use {"hrsh7th/nvim-cmp",
+    config = function()
+      local cmp = require("cmp")
+      cmp.setup({
+        sources = cmp.config.sources({
+          { name = "nvim_lsp" },
+          { name = "buffer" },
+          { name = "path" },
+        }),
+        mapping = cmp.mapping.preset.insert({
+          ["<C-p>"] = cmp.mapping.select_prev_item(),
+          ["<C-n>"] = cmp.mapping.select_next_item(),
+        })
+      })
+      vim.api.nvim_create_autocmd("ColorScheme", {
+          group = vim.api.nvim_create_augroup("visible_cmp_kind", { clear = true }),
+          pattern = "*",
+          command = "highlight CmpItemKind guifg=blue"
+      })
+    end
+  }
   use "hrsh7th/cmp-nvim-lsp"
   use "hrsh7th/cmp-buffer"
   use 'hrsh7th/cmp-path'
@@ -44,20 +72,3 @@ require('packer').startup(function(use)
     require('packer').sync()
   end
 end)
-
-require("mason").setup()
-require("mason-lspconfig").setup()
-require("lspconfig").sumneko_lua.setup {}
-
-local cmp = require("cmp")
-cmp.setup({
-  sources = cmp.config.sources({
-    { name = "nvim_lsp" },
-    { name = "buffer" },
-    { name = "path" },
-  }),
-  mapping = cmp.mapping.preset.insert({
-    ["<C-p>"] = cmp.mapping.select_prev_item(),
-    ["<C-n>"] = cmp.mapping.select_next_item(),
-  })
-})
