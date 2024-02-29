@@ -1,47 +1,56 @@
-local ensure_packer = function()
-  local fn = vim.fn
-  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
-  if fn.empty(fn.glob(install_path)) > 0 then
-    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
-    vim.cmd [[packadd packer.nvim]]
-    return true
-  end
-  return false
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable",
+    lazypath,
+  })
 end
+vim.opt.rtp:prepend(lazypath)
 
-local packer_bootstrap = ensure_packer()
-
-require('packer').startup(function(use)
-  use 'wbthomason/packer.nvim'
-  -- My plugins here
-  -- use 'foo1/bar1.nvim'
-  -- use 'foo2/bar2.nvim'
-  use {'jonathanfilip/vim-lucius', config = function()
-    vim.cmd [[colorscheme lucius]]
-  end}
-
-  use {
-    'nvim-telescope/telescope.nvim', tag = '0.1.0',
-    requires = { {'nvim-lua/plenary.nvim'} },
+require('lazy').setup({
+  {
+    'jonathanfilip/vim-lucius',
+    config = function()
+      vim.cmd('colorscheme lucius')
+    end
+  },
+  {
+    'nvim-telescope/telescope.nvim', tag = '0.1.5',
+    dependencies = { 'nvim-lua/plenary.nvim' },
     config = function()
       local builtin = require('telescope.builtin')
       vim.keymap.set('n', '<C-p>', builtin.git_files, {})
     end
-  }
+  },
 
   -- LSP related
-  use 'neovim/nvim-lspconfig'
-  use {'williamboman/mason.nvim',
+  {
+    "williamboman/mason.nvim",
+    build = ":MasonUpdate",
+    opts = {},
+  },
+  {
+    "williamboman/mason-lspconfig.nvim",
+    dependencies = { "williamboman/mason.nvim", "neovim/nvim-lspconfig" },
     config = function()
-      require("mason").setup()
+      local lspconfig = require("lspconfig")
+      require("mason-lspconfig").setup_handlers ({
+        function (server_name)
+          lspconfig[server_name].setup {}
+        end,
+      })
     end
-  }
-  use {'williamboman/mason-lspconfig.nvim',
-    config = function()
-      require("mason-lspconfig").setup()
-    end
-  }
-  use {"hrsh7th/nvim-cmp",
+  },
+  {"hrsh7th/nvim-cmp",
+    dependencies = {
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-path",
+    },
     config = function()
       local cmp = require("cmp")
       cmp.setup({
@@ -61,14 +70,6 @@ require('packer').startup(function(use)
           command = "highlight CmpItemKind guifg=blue"
       })
     end
-  }
-  use "hrsh7th/cmp-nvim-lsp"
-  use "hrsh7th/cmp-buffer"
-  use 'hrsh7th/cmp-path'
-
-  -- Automatically set up your configuration after cloning packer.nvim
-  -- Put this at the end after all plugins
-  if packer_bootstrap then
-    require('packer').sync()
-  end
-end)
+  },
+  "github/copilot.vim",
+})

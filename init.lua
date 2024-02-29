@@ -15,8 +15,6 @@ local options = {
     listchars = "tab:>-",
     list = true,
     signcolumn = "yes",
-    scroll = 10,
-    scrolloff = 6,
     background = dark,
     splitright = true,
     mouse = "",
@@ -31,6 +29,12 @@ vim.api.nvim_create_autocmd("BufEnter", {
     group = vim.api.nvim_create_augroup("auto_comment_off", { clear = true }),
     pattern = "*",
     command = "setlocal formatoptions-=ro"
+})
+
+vim.api.nvim_create_autocmd("BufReadPost", {
+    group = vim.api.nvim_create_augroup("scroll", { clear = true }),
+    pattern = "*",
+    command = "setlocal scroll=10 scrolloff=6"
 })
 
 require("plugins")
