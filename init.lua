@@ -37,5 +37,13 @@ vim.api.nvim_create_autocmd("BufReadPost", {
     command = "setlocal scroll=10 scrolloff=6"
 })
 
+vim.api.nvim_create_autocmd("BufReadPost", {
+    group = vim.api.nvim_create_augroup("jump_to_last_position", { clear = true }),
+    pattern = "*",
+    callback = function()
+        vim.api.nvim_command('silent! normal! g`"')
+    end
+})
+
 require("plugins")
 require("keybind")
